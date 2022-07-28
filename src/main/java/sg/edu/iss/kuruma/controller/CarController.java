@@ -19,7 +19,7 @@ import sg.edu.iss.kuruma.service.CarService;
 
 @CrossOrigin
 @RestController
-@RequestMapping (value="/car")
+@RequestMapping (value="/api")
 public class CarController {
     @Autowired
     CarService cservice;
