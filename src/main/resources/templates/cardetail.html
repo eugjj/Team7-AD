@@ -1,0 +1,25 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<body>
+	<div>
+	
+	
+	<div class="ml"></div>
+	<div class-"recommendation"></div> class="car-details">
+	<table>
+	<h2 th:utext="BrandList" th:if="${not #lists.isEmpty(brandlist)}">Brand List</h2>
+	<table class="w3-container" th:if="${not #lists.isEmpty(brandlist)}">
+	<tr th:each="car:${brandlist}">
+	<td th:text=${car.brand}>Brand</td>
+	<td th:text=${car.model}>Model</td>
+	<td th:text=${car.price}>Price</td>
+	<td><a href="" th:href="@{${car.link}" th:utext=""> Link to car listing </a></td>
+	</tr>
+	</table>
+	</div>
+	
+	
+	<div class="ml"></div>
+	<div class-"recommendation"></div>
+
+</body>
+</html>
