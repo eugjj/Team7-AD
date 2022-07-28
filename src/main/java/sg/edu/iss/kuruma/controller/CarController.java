@@ -1,6 +1,6 @@
 package sg.edu.iss.kuruma.controller;
 
-import org.json.JSONObject;
+//import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import sg.edu.iss.kuruma.service.CarService;
 
 @CrossOrigin
 @RestController
-@RequestMapping (value="/car")
+@RequestMapping (value="/api")
 public class CarController {
     @Autowired
     CarService cservice;
@@ -33,4 +33,5 @@ public class CarController {
                 return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
             }
     }
+    
 }
