@@ -15,3 +15,4 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
     @Query("SELECT c from Car c WHERE c.brand = :model")
     ArrayList<Car> findByModel(@Param("model") String model);
 }
+ 
