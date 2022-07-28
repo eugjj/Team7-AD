@@ -32,7 +32,6 @@ public class SearchController {
 		String brand = car.getBrand();
 		List<Car> list = cservice.findByBrand(brand);
 		model.addAttribute("brandlist",list);
-		System.out.println(car.getBrand());
 		return "brandlist";
 	}
 

@@ -8,6 +8,7 @@
 	<td th:text=${car.brand}>Brand</td>
 	<td th:text=${car.model}>Model</td>
 	<td th:text=${car.price}>Price</td>
+	<td><a href="" th:href="@{${car.link}" th:utext=""> Link to car listing </a></td>
 	</tr>
 </table>
 <div th:if="${#lists.isEmpty(brandlist)}">>
