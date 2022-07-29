@@ -19,6 +19,13 @@ public class SearchController {
 	@Autowired
 	CarService cservice;
 	
+	@RequestMapping("/")
+	public String home1(Model model){
+		Car car1 = new Car();
+		model.addAttribute("car", car1);
+		return "home";
+	}
+	
 	@RequestMapping("/home")
 	public String home(Model model){
 		Car car1 = new Car();
@@ -40,4 +47,14 @@ public class SearchController {
 		model.addAttribute("cars", cservice.listCar());
 		return "cars";
 	}*/
+    
+    @RequestMapping("/contactus")
+    public String home() {
+		return "contactus";
+	}
+    
+    @RequestMapping("/aboutus")
+	public String aboutUs(){
+		return "aboutus";
+	}
 }
