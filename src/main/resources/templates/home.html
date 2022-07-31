@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div th:replace="fragment/general.html :: nav"></div>
-	<form th:action="@{/search}" th:object="${car}" method="POST">
+	<form th:action="@{/search}" method="POST">
 	<div class="container">
 		 <div>
 		 	<span style="color: red;" th:if="${isNull != null}">Please provide both username and password</span>
@@ -19,8 +19,8 @@
 		 </div>
 		 <table>
 	       		<tr style = "padding: 10px">
-	                <td>Username:</td>
-	                <td><input type="text" placeholder="Enter car brand..." th:field="*{brand}"/></td>
+	                <td>Search Kuruma:</td>
+	                <td><input type="text" placeholder="Start your Kuruma car search..." name="entry" th:value="${entry}"/></td>
 	            </tr>
 	            
 	            <tr style = "padding: 10px">
