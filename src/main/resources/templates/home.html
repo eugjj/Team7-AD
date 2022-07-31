@@ -9,6 +9,7 @@
     <title>Kuruma Cars</title>
 </head>
 <body>
+	<div th:replace="fragment/general.html :: nav"></div>
 	<form th:action="@{/search}" th:object="${car}" method="POST">
 	<div class="container">
 		 <div>
