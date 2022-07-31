@@ -21,14 +21,13 @@ public class SearchController {
 	@Autowired
 	CarService cservice;
 	
-	
 	 @RequestMapping("/home") public String home(Model model, @Param("entry") String entry) { 
 		 model.addAttribute("entry", entry); 
 		 return "home"; 
 		 }
 	 
 	 @GetMapping("/search")
-	 public String listAllCars(@Param("entry") String entry, Model model) {
+	 public String showAllCars(@Param("entry") String entry, Model model) {
 	    	List<Car> list = cservice.findAllCars();
 	    	model.addAttribute("searchlist",list);
 	    	model.addAttribute("entry", entry);
