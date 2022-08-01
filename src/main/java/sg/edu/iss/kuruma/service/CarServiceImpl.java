@@ -46,7 +46,19 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    @Transactional
     public Car findById(Integer id) {    
         return crepo.findById(id).orElse(null);
     }
+
+	@Override
+	@Transactional
+	public List<Car> findSearchByEntry(String entry) {
+		return crepo.findSearch(entry);
+	}
+
+	@Override
+	public List<Car> findAllCars() {
+		return crepo.findAll();
+	}
 }

@@ -1,25 +1,34 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<body>
-	<div>
-	
-	
-	<div class="ml"></div>
-	<div class-"recommendation"></div> class="car-details">
-	<table>
-	<h2 th:utext="BrandList" th:if="${not #lists.isEmpty(brandlist)}">Brand List</h2>
-	<table class="w3-container" th:if="${not #lists.isEmpty(brandlist)}">
-	<tr th:each="car:${brandlist}">
-	<td th:text=${car.brand}>Brand</td>
-	<td th:text=${car.model}>Model</td>
-	<td th:text=${car.price}>Price</td>
-	<td><a href="" th:href="@{${car.link}" th:utext=""> Link to car listing </a></td>
-	</tr>
-	</table>
-	</div>
-	
-	
-	<div class="ml"></div>
-	<div class-"recommendation"></div>
+<head>
 
+<title>Car Details</title>
+</head>
+<body>
+<h2 th:text="${carD.model}"></h2>     
+<table>
+ 	<tr>
+ 		<td></td>
+ 		<td> <img th:src="@{${carD.imgLink}}"/></td> 
+ 	</tr>
+	<tr>
+		<td>Brand</td>
+		<td> <span th:text="${carD.brand}"></td> 
+	</tr>
+	<tr>
+		<td>Model</td>
+		<td> <span th:text="${carD.model}"></td>
+	</tr>
+	<tr>
+		<td>Price</td>
+		<td> <span th:text="${carD.price}"></td> 
+	</tr>
+	<tr>
+		<td>Link</td>
+		<td><a th:href="@{${carD.link}}" > Link to car listing </a></td>
+	</tr>
+</table>
 </body>
-</html>
+</html>>
+</body>
+

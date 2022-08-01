@@ -11,5 +11,7 @@ public interface CarService {
     public List<Car> findByBrand(String brand);
     public List<Car> findByModel(String model);
     public Car findById(Integer id);
+    public List<Car> findSearchByEntry(String entry);
+    public List<Car> findAllCars();
 
 }
