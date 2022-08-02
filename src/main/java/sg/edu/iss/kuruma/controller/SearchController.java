@@ -81,6 +81,31 @@ public class SearchController {
     	return "searchlist"; 
     	}
     
+    @RequestMapping("/search/backward/{currentPage}")
+    public String searchCarsPrev(@PathVariable(value = "currentPage") int page, Model model) {
+    	List<Car> result = new ArrayList<Car>();
+    	if (1 == page) {
+    		for(int i=0; i<ITEMS_PER_PAGE; i++) {
+				result.add(listByPage.get(i));
+			}
+    	}
+    	else {
+			int max = --page * ITEMS_PER_PAGE;
+			int start = --page * ITEMS_PER_PAGE;
+			
+			if (max > listByPage.size()) {
+				max = listByPage.size();
+			}
+			for(int i=start; i<max; i++) {
+				result.add(listByPage.get(i));
+			}
+			++page;
+    	}
+    	model.addAttribute("currentPage", page);
+    	model.addAttribute("searchlist", result);
+    	return "searchlist";	
+    }
+    
     @RequestMapping("/cardetail/{id}")
     public String cardetail(@PathVariable("id") Integer id, Model model) {      
         Car cardetails = cservice.findById(id);
