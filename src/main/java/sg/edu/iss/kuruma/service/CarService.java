@@ -13,5 +13,6 @@ public interface CarService {
     public Car findById(Integer id);
     public List<Car> findSearchByEntry(String entry);
     public List<Car> findAllCars();
+    public List<Car> sortSearchByPrice(String entry);
 
 }

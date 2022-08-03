@@ -1,7 +1,10 @@
 package sg.edu.iss.kuruma.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -24,6 +27,7 @@ public class SearchController {
 	CarService cservice;
 	
 	private List<Car>listByPage;
+	private List<Car>sortedList;
 	private final int ITEMS_PER_PAGE = 20;
 	
 	 @RequestMapping("/home") public String home(Model model, @Param("entry") String entry) { 
@@ -53,6 +57,16 @@ public class SearchController {
     	model.addAttribute("currentPage",1);
 		return "searchlist";
 	}
+    
+    @RequestMapping("/search/sort-{entry}")
+    public String sortCar(Model model, @RequestParam("by") String by, @PathVariable("entry") String entry) {
+    	if (by.equals("Price")) {
+    		sortedList = cservice.sortSearchByPrice(entry);
+    		model.addAttribute("searchlist", sortedList);
+    		return "searchlist";
+    	}
+    	else return "home";
+    }
     
     @RequestMapping("/search/forward/{currentPage}")
     public String searchCarsNext(@PathVariable(value = "currentPage") int page, Model model) {
@@ -123,4 +137,5 @@ public class SearchController {
 	public String aboutUs(){
 		return "aboutus";
 	}
+    
 }

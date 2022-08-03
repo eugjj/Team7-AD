@@ -12,34 +12,53 @@
 
 <div class="container text-center">
 <div class-"row">
-<div class="container-fluid"><form th:action="@{/search}" method="POST">
+<div class="container-fluid">
+<form th:action="@{/search}" method="POST">
 		 <table>
 	       		<tr style = "padding: 20px">
-	                <td>Search Kuruma:</td>
+	                <td><label for="searchBox" class="form-label">Search Kuruma  </label></td>
 	                <td><input type="text" class="form-control" placeholder="Filter by entry...." th:name="entry" th:value="${entry}"/></td>
 	                <td ><button class="btn btn-primary">Search</button></td>
 	    </table>
  </form></divclass="container-fluid"></div></div>
  
- <div class="row">
-<div class="container-fluid"><h4>Search results ...</h4>
-<table class="w3-container" >
+<div class="row">
+<div class="container-fluid">
+<form th:action="@{/search/sort-}+${entry}">
+<div class="btn-group-sm" role="group" aria-label="Sort by...">
+	<span>Sort search by...</span>
+	  <button class="btn btn-outline-primary" type="submit" th:name="by" th:value="Price">Price</button>
+	  <button class="btn btn-outline-primary">Age</button>
+	  <button class="btn btn-outline-primary">COE</button>
+</div>
+</form>
+
+<table class="table table-hover">
+	<tr><th class="col">Brand</th>
+		<th class="col-2"></th>
+		<th class="col">Model</th>
+		<th class="col">Listing Price</th>
+		<th class="col"></th>
+		<th class="col">Add to wishlist</th></tr>
 	<tr th:each="car:${searchlist}">
 	<td th:text=${car.brand}>Brand</td>
-	<td><img th:src="@{${car.imgLink}}"/></td>
+	<td><img class="img-fluid" th:src="@{${car.imgLink}}"/></tdcol-5>
 	<td><a href="cardetail.html" th:href="@{/cardetail/}+${car.Id}" th:text=${car.model}/></td>
 	<td th:text=${car.price}>Price</td>
 	<td><a href="cardetail.html" th:href="@{/cardetail/}+${car.Id}">Details</a></td>
-	</tr>
-	<tr>
-	<td>
- 		<a th:href="@{/search/backward/}+${currentPage}">&laquo;</a>
- 		<span style="margin: 0 6px;" th:text="${currentPage}"></span>
-  		<a th:href="@{/search/forward/}+${currentPage}">&raquo;</a>
- 	</td>
- 	</tr>
-</table></div></div></div>
-
+	<td></td>
+	</tr></table></div></div>
+	
+	<div class="row">
+	<div class="container-fluid">
+  		<nav aria-label="Page navigation">
+  			<ul class="pagination">
+    			<li class="page-item"><a class="page-link" th:href="@{/search/backward/}+${currentPage}">Previous</a></li>
+    			<li class="page-item"><a class="page-link" th:text="${currentPage}"></a></li>
+			    <li class="page-item"><a class="page-link" th:href="@{/search/forward/}+${currentPage}">Next</a></li>
+			  </ul>
+		</nav>
+	</div></div>
 
 <!-- Optional JavaScript for Bootscrap-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>

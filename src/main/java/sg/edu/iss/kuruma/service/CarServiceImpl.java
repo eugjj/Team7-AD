@@ -61,4 +61,9 @@ public class CarServiceImpl implements CarService {
 	public List<Car> findAllCars() {
 		return crepo.findAll();
 	}
+
+	@Override
+	public List<Car> sortSearchByPrice(String entry) {
+		return crepo.fndSearchSortByPrice(entry);
+	}
 }
