@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.iss.kuruma.model.Car;
 import sg.edu.iss.kuruma.model.User;
+import sg.edu.iss.kuruma.repository.UserRepository;
 import sg.edu.iss.kuruma.service.CarService;
 import sg.edu.iss.kuruma.service.UserService;
 
@@ -28,9 +29,12 @@ public class SearchController {
 	CarService cservice;
 	@Autowired
 	UserService uservice;
+	// to be removed!!
+	@Autowired
+	UserRepository urepo;
 	
 	private List<Car>listByPage;
-	private List<Car> listW = new ArrayList();
+	private List<Car> listW = new ArrayList<Car>();
 	private boolean atWishlist = false;
 	private int pageNo = 0;
 	private String searchEntry;
@@ -53,6 +57,10 @@ public class SearchController {
 	    	List<Car> list = cservice.findAllCars();
 	    	model.addAttribute("searchlist",list);
 	    	model.addAttribute("entry", entry);
+	    	
+	    	// temp seeding of user. to be removed once login and register is done!!
+	    	User user = new User("1","1");
+	    	urepo.save(user);
 			return "searchlist";
 		}
 	
