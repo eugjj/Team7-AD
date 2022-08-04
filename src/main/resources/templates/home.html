@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <title>Kuruma Cars</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">	
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+	<script type="text/javascript" th:src="@{webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
+
 <body>
 	<div th:replace="fragment/general.html :: nav"></div>
-	<form th:action="@{/search}" method="POST">
-	<div class="container">
-		 <div>
-		 	<span style="color: red;" th:if="${isNull != null}">Please provide both username and password</span>
-		 	<span style="color: red;" th:if="${wrong != null}">Wrong password</span>
-		 	<span style="color: red;" th:if="${exist != null}">Username incorrect/not found</span>
-		 </div>
+	
+	<form th:action="@{/search}" method="POST" style="max-width:350px; margin: 0 auto">
+	<div class="border border-secondary rounded p-3">
+			
 		 <table>
 	       		<tr style = "padding: 10px">
 	                <td>Search Kuruma:</td>
@@ -29,10 +27,6 @@
 	    </table>
     </form>
 	</div>
-	<!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<footer th:replace="fragment/footer.html :: footer"></footer>
 </body>
 </html>
