@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,8 @@ public class Car {
     private Double price;
     private String imgLink;    
     private String link;
+    @ManyToOne
+    private User user;
     
     public Car(String brand, String model, Double price, String imgLink, String link) {
         super();
