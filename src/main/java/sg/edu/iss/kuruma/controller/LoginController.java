@@ -9,9 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import sg.edu.iss.kuruma.model.User;
-import sg.edu.iss.kuruma.repository.UserRepository;
 import sg.edu.iss.kuruma.service.UserService;
 
 @Controller
@@ -35,7 +33,7 @@ public class LoginController {
 	@RequestMapping("/register/new")
 	public String registerNew(@ModelAttribute("user") User user, Model model) {
 		User u = new User (user.getUsername(),user.getPassword(),user.getEmail());
-		if (uservice.findUserByUsername(u.getUsername()) == null) {
+		if (uservice.findByUsername(u.getUsername()) == null) {
 		uservice.addUser(u);
 		return "home";}
 		else
@@ -52,7 +50,7 @@ public class LoginController {
 			return "forward:/login";
 		}
 		
-		User u = uservice.findUserByUsername(user.getUsername());
+		User u = uservice.findByUsername(user.getUsername());
 		
 		if (u == null) {
 			return "forward:/login";
@@ -60,20 +58,15 @@ public class LoginController {
 		
 		if (authenticateUser(user, u)) {
 			session.setAttribute("username", u.getUsername());
-			return "forward:/home";
+			return "forward:/user/"+u.getUsername();
 		}
 		return "forward:/login";
 	}
 	
 	@RequestMapping("/logout")
 	public String Logout(HttpSession session){
-		int id = (int) session.getAttribute("userId");
-		User user = uservice.findUserById(id);
-		if (user != null) {
-			session.removeAttribute("userId");
-			session.removeAttribute("username");
-			session.invalidate();
-		}
+			session.setAttribute("username","Guest");
+			
 		return "forward:/home";
 	}
 	

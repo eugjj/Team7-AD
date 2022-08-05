@@ -1,15 +1,17 @@
 package sg.edu.iss.kuruma.service;
 
+import java.util.List;
+
 import sg.edu.iss.kuruma.model.Car;
 import sg.edu.iss.kuruma.model.User;
 
 public interface UserService { 
 	
 	public User getUser(Integer id);
-	public void addToWishlist(Car car);
-	public void removeFromWishlist(Car car);
-	public User findUserByUsername(String name);
-	public User findUserById(int userid);
+	public void addToWishlist(Car car, String username);
+	public void removeFromWishlist(Car car, String username);
+	public User findByUsername(String name);
 	public User addUser(User user);
+	public List<Integer> getWishlist(String username);
 
 }

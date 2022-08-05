@@ -1,5 +1,6 @@
 package sg.edu.iss.kuruma.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,8 @@ public class UserServiceImpl implements UserService {
     } 
     @Transactional
     @Override
-    public void removeFromWishlist(Car car) {        
-    	User user = urepo.findById(1).get();
+    public void removeFromWishlist(Car car, String username) {        
+    	User user = findByUsername(username);
     	List<Car> wishlist = user.getWishlist();	   	
 		wishlist.remove(car);
     	user.setWishlist(wishlist);
@@ -33,22 +34,27 @@ public class UserServiceImpl implements UserService {
     
     @Transactional
 	@Override
-	public void addToWishlist(Car car) {
-    	User user = urepo.findById(1).get();
+	public void addToWishlist(Car car, String username) {
+    	User user = findByUsername(username);
     	List<Car> wishlist = user.getWishlist();	   	
 		wishlist.add(car);
     	user.setWishlist(wishlist);
     	urepo.saveAndFlush(user);
     }		
     
+    @Transactional
     @Override
-	public User findUserByUsername(String username) {
-		return urepo.findUserByUsername(username);
+	public User findByUsername(String username) {
+		return urepo.findByUsername(username);
 	}
 
+    @Transactional
 	@Override
-	public User findUserById(int userid) {
-		return urepo.findById(userid).get();
+	public List<Integer> getWishlist(String username) {
+    	List<Integer> wishList = new ArrayList<Integer>();
+    	for(Car c:findByUsername(username).getWishlist())
+    	{wishList.add(c.getId());}
+		return wishList;
 	}
 	
 	@Transactional
