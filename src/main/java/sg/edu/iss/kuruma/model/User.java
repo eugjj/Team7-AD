@@ -27,12 +27,12 @@ public class User {
 	@OneToMany
 	private List<Car> wishlist;
 	
-	public User(String username, String password) {
+	public User(String username, String password, List<Car>wishlist) {
         super();
         this.userid = 1;
         this.username = username;
         this.password = password;       
-             
+        this.wishlist=wishlist;
     }
 	public User(String email) {
 		super();

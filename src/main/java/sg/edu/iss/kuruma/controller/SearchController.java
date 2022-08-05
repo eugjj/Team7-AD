@@ -59,7 +59,7 @@ public class SearchController {
 	    	model.addAttribute("entry", entry);
 	    	
 	    	// temp seeding of user. to be removed once login and register is done!!
-	    	User user = new User("1","1");
+	    	User user = new User("1","1", new ArrayList<Car>());
 	    	urepo.save(user);
 			return "searchlist";
 		}
