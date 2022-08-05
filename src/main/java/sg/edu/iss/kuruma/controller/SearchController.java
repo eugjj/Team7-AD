@@ -29,9 +29,6 @@ public class SearchController {
 	CarService cservice;
 	@Autowired
 	UserService uservice;
-	// to be removed!!
-	@Autowired
-	UserRepository urepo;
 	
 	private List<Car>listByPage;
 	private List<Car> listW = new ArrayList<Car>();
@@ -57,10 +54,6 @@ public class SearchController {
 	    	List<Car> list = cservice.findAllCars();
 	    	model.addAttribute("searchlist",list);
 	    	model.addAttribute("entry", entry);
-	    	
-	    	// temp seeding of user. to be removed once login and register is done!!
-	    	User user = new User("1","1", new ArrayList<Car>());
-	    	urepo.save(user);
 			return "searchlist";
 		}
 	
@@ -201,7 +194,7 @@ public class SearchController {
     	Car car = cservice.findById(carID);
     	uservice.removeFromWishlist(car);
     	
-    	if(atWishlist) {
+    	if (atWishlist) {
     		return "forward:/user/"+"1";
     	}
     	else

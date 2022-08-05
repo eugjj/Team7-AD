@@ -40,4 +40,15 @@ public class UserServiceImpl implements UserService {
     	user.setWishlist(wishlist);
     	urepo.saveAndFlush(user);
     }		
+    
+    @Override
+	public User findUserByUsername(String username) {
+		return urepo.findUserByUsername(username);
+	}
+
+	@Override
+	public User findUserById(int userid) {
+		return urepo.findById(userid).get();
+	}
+
 }

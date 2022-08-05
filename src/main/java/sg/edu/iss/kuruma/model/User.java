@@ -2,15 +2,13 @@ package sg.edu.iss.kuruma.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +17,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 public class User {
-	@Id	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int userid;
 	private String username;
 	public String email;
@@ -27,13 +26,15 @@ public class User {
 	@OneToMany
 	private List<Car> wishlist;
 	
-	public User(String username, String password, List<Car>wishlist) {
+	public User(String username, String password, String email) {
         super();
-        this.userid = 1;
+        SCryptPasswordEncoder encoder = new SCryptPasswordEncoder();
+        String hashedPassword = encoder.encode(password);
         this.username = username;
-        this.password = password;       
-        this.wishlist=wishlist;
+        this.password = hashedPassword;       
+        this.email = email;
     }
+	
 	public User(String email) {
 		super();
 		this.email = email;

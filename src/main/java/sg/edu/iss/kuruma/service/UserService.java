@@ -8,5 +8,7 @@ public interface UserService {
 	public User getUser(Integer id);
 	public void addToWishlist(Car car);
 	public void removeFromWishlist(Car car);
-	
+	public User findUserByUsername(String name);
+	public User findUserById(int userid);
+
 }
