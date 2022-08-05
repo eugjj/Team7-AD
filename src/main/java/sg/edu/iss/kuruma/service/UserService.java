@@ -10,5 +10,6 @@ public interface UserService {
 	public void removeFromWishlist(Car car);
 	public User findUserByUsername(String name);
 	public User findUserById(int userid);
+	public User addUser(User user);
 
 }

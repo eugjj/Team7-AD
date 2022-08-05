@@ -50,5 +50,11 @@ public class UserServiceImpl implements UserService {
 	public User findUserById(int userid) {
 		return urepo.findById(userid).get();
 	}
+	
+	@Transactional
+	@Override
+	public User addUser(User user) {
+		return urepo.saveAndFlush(user);
+	}
 
 }

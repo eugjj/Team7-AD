@@ -19,15 +19,28 @@ public class LoginController {
 	
 	@Autowired
 	UserService uservice;
-	@Autowired
-	UserRepository urepo;
 	
 	@RequestMapping("/login")
-	public String Login(Model model) {
-		//User test = new User("2","2","eugeneongjj@gmail.com");
-		//urepo.saveAndFlush(test);
+	public String Login(Model model) {		
 		model.addAttribute("user", new User());
 		return "login";
+	}
+	
+	@RequestMapping("/register")
+	public String register(Model model) {
+		model.addAttribute("user", new User());
+		return "register";
+	}
+	
+	@RequestMapping("/register/new")
+	public String registerNew(@ModelAttribute("user") User user, Model model) {
+		User u = new User (user.getUsername(),user.getPassword(),user.getEmail());
+		if (uservice.findUserByUsername(u.getUsername()) == null) {
+		uservice.addUser(u);
+		return "home";}
+		else
+			model.addAttribute("message", "repeat username");
+		return "forward:/register";
 	}
 	
 	@PostMapping("/submit")
@@ -46,8 +59,7 @@ public class LoginController {
 		}
 		
 		if (authenticateUser(user, u)) {
-			session.setAttribute("userId", u.getUserid());
-			session.setAttribute("userName", u.getUsername());
+			session.setAttribute("username", u.getUsername());
 			return "forward:/home";
 		}
 		return "forward:/login";
@@ -59,7 +71,7 @@ public class LoginController {
 		User user = uservice.findUserById(id);
 		if (user != null) {
 			session.removeAttribute("userId");
-			session.removeAttribute("userName");
+			session.removeAttribute("username");
 			session.invalidate();
 		}
 		return "forward:/home";
