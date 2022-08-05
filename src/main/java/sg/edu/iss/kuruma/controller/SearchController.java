@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import sg.edu.iss.kuruma.model.Car;
+import sg.edu.iss.kuruma.model.Session;
 import sg.edu.iss.kuruma.model.User;
 import sg.edu.iss.kuruma.repository.UserRepository;
 import sg.edu.iss.kuruma.service.CarService;
@@ -162,8 +164,9 @@ public class SearchController {
     	}
     
     @RequestMapping("/cardetail/{id}")
-    public String cardetail(@PathVariable("id") Integer id, Model model) {      
-        Car cardetails = cservice.findById(id);
+    public String cardetail(@PathVariable("id") Integer id, Model model, @SessionAttribute("session") Session session) {      
+    	Car cardetails = cservice.findById(id);
+    	session.setLastViewCar(cardetails);
         model.addAttribute("carD",cardetails);
         return "cardetail";
     }
