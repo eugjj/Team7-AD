@@ -60,13 +60,20 @@ public class SearchController {
 		}
 	
     @PostMapping("/search")
-	public String searchCar(@RequestParam("entry") String entry, Model model) {
+	public String searchCar(@RequestParam("entry") String entry, Model model, @SessionAttribute("session") Session session) {
     	if(entry != null) {
     		searchEntry = entry;
     		listByPage = new ArrayList<Car>();
         	listByPage = cservice.findSearchByEntry(searchEntry);}
+    	
     	atWishlist = false;
-		listW = uservice.getUser(1).getWishlist();
+    	if (session.getUsername() != null) {
+    		listW = uservice.getUser(session.getUserid()).getWishlist();
+    		model.addAttribute("wishlist",listW);
+    	}
+    	else {
+    		model.addAttribute("wishlist",listW);
+    	}
     	
     	List<Car> result = new ArrayList<Car>();
     	if (listByPage.size() > 0) {
@@ -74,17 +81,22 @@ public class SearchController {
     			result.add(listByPage.get(i));}}
     	pageNo = 0;
     	model.addAttribute("searchlist",result);
-    	model.addAttribute("wishlist",listW);
     	model.addAttribute("entry", entry);
     	model.addAttribute("currentPage",1);
 		return "searchlist";
 	}
     
     @RequestMapping("/search/forward/{currentPage}")
-    public String searchCarsNext(@PathVariable(value = "currentPage") int page, Model model) {
-    	listW = uservice.getUser(1).getWishlist();
-    	List<Car> result = new ArrayList<Car>();
+    public String searchCarsNext(@PathVariable(value = "currentPage") int page, Model model, @SessionAttribute("session") Session session) {
+    	if (session.getUsername() != null) {
+    		listW = uservice.getUser(session.getUserid()).getWishlist();
+    		model.addAttribute("wishlist",listW);
+    	}
+    	else {
+    		model.addAttribute("wishlist",listW);
+    	}
     	
+    	List<Car> result = new ArrayList<Car>();
     	if (listByPage.size() / ITEMS_PER_PAGE < page) {
     		page--;
     	}
@@ -105,15 +117,21 @@ public class SearchController {
     	}
     	pageNo = page-1;
     	model.addAttribute("currentPage", page);
-    	model.addAttribute("wishlist",listW);
     	model.addAttribute("searchlist", result);
     	return "searchlist"; 
     	}
     
     @RequestMapping("/search/backward/{currentPage}")
-    public String searchCarsPrev(@PathVariable(value = "currentPage") int page, Model model) {
+    public String searchCarsPrev(@PathVariable(value = "currentPage") int page, Model model, @SessionAttribute("session") Session session) {
     	atWishlist = false;
-    	listW = uservice.getUser(1).getWishlist();
+    	if (session.getUsername() != null) {
+    		listW = uservice.getUser(session.getUserid()).getWishlist();
+    		model.addAttribute("wishlist",listW);
+    	}
+    	else {
+    		model.addAttribute("wishlist",listW);
+    	}
+    	
     	List<Car> result = new ArrayList<Car>();
     	if (1 == page) {
     		for(int i=0; i<ITEMS_PER_PAGE; i++) {
@@ -134,15 +152,20 @@ public class SearchController {
     	}
     	pageNo = page-1;
     	model.addAttribute("currentPage", page);
-    	model.addAttribute("wishlist",listW);
     	model.addAttribute("searchlist", result);
     	return "searchlist";	
     }
     
     @RequestMapping("/search/{currentPage}")
-    public String searchCarsCurrent(@PathVariable(value = "currentPage") int page, Model model) {
+    public String searchCarsCurrent(@PathVariable(value = "currentPage") int page, Model model, @SessionAttribute("session") Session session) {
+    	if (session.getUsername() != null) {
+    		listW = uservice.getUser(session.getUserid()).getWishlist();
+    		model.addAttribute("wishlist",listW);
+    	}
+    	else {
+    		model.addAttribute("wishlist",listW);
+    	}
     	
-    	listW = uservice.getUser(1).getWishlist();
     	List<Car> result = new ArrayList<Car>();
     	if (listByPage.size() > 0) {
     		if ((listByPage.size() / ITEMS_PER_PAGE) + 1 >= page) {
@@ -158,7 +181,6 @@ public class SearchController {
     	}
     	int pageNoModel = pageNo+1;
     	model.addAttribute("currentPage", pageNoModel);
-    	model.addAttribute("wishlist",listW);
     	model.addAttribute("searchlist", result);
     	return "searchlist"; 
     	}

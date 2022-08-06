@@ -16,7 +16,7 @@ public class CarServiceImpl implements CarService {
     
     @Transactional
     public void saveCar(Car car) {        
-            crepo.save(car);
+            crepo.saveAndFlush(car);
     }
 
     @Transactional
