@@ -63,4 +63,11 @@ public class UserServiceImpl implements UserService {
 		return urepo.saveAndFlush(user);
 	}
 
+	@Transactional
+	@Override
+	public void save(User u) {
+		urepo.save(u);
+	}
+
+
 }

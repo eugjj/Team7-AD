@@ -35,7 +35,7 @@ public class LoginController {
 		User u = new User (user.getUsername(),user.getPassword(),user.getEmail());
 		if (uservice.findByUsername(u.getUsername()) == null) {
 		uservice.addUser(u);
-		return "home";}
+		return "redirect:/home";}
 		else
 			model.addAttribute("message", "repeat username");
 		return "forward:/register";
@@ -74,5 +74,33 @@ public class LoginController {
 		SCryptPasswordEncoder encoder = new SCryptPasswordEncoder();
 		return encoder.matches(user.getPassword(), userFromDb.getPassword());
 	}
+
+	@RequestMapping("/change")
+	public String changePassword(Model model)
+	{
+	    
+		model.addAttribute("user",new User());//create plain object to use in html
+       return "changePassword";
+	}
+	
+	@PostMapping("/confirm")
+	public String changing(@ModelAttribute("user")User user)//come from html
+	{
+	   User u=uservice.findByUsername(user.getUsername());
+	   if(u==null) {
+		   return "forward:/login";
+	   }
+	   else {
+		   if(authenticateUser(user,u)) {
+			   SCryptPasswordEncoder encoder = new SCryptPasswordEncoder();
+			   String hashedPassword = encoder.encode(user.getNewPassword());
+			   u.setPassword(hashedPassword);
+			   uservice.save(u);
+		   }
+		   return "forward:/login";
+	   }
+	}
+
+
 
 }

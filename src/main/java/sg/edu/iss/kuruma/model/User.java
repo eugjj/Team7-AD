@@ -22,6 +22,7 @@ public class User {
 	private String username;
 	public String email;
 	private String password;	
+	public String newPassword;
 	@ManyToMany
 	private List<Car> wishlist;
 	

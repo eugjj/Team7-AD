@@ -51,9 +51,12 @@ public class SearchController {
 	 
 	 @GetMapping("/search")
 	 public String showAllCars(@Param("entry") String entry, Model model, HttpSession session) {
-		 	try {
-		 	username =(String) session.getAttribute("username");
-		 	wList = uservice.getWishlist(username);
+		 String uname = (String)session.getAttribute("username");
+			if (uname.isEmpty()) 
+				session.setAttribute("username", "Guest");
+		 try {
+		 	
+		 	wList = uservice.getWishlist(uname);
 	    	List<Car> list = cservice.findAllCars();
 	    	model.addAttribute("searchlist",list);
 	    	model.addAttribute("wishlist",wList);
@@ -164,9 +167,10 @@ public class SearchController {
     	}
     
     @RequestMapping("/cardetail/{id}")
-    public String cardetail(@PathVariable("id") Integer id, Model model) {      
+    public String cardetail(@PathVariable("id") Integer id, Model model, HttpSession session) {      
         Car cardetails = cservice.findById(id);
         model.addAttribute("carD",cardetails);
+        session.setAttribute("lastcarviewed", id);
         return "cardetail";
     }
     
@@ -177,7 +181,7 @@ public class SearchController {
     		uservice.addToWishlist(car, username);
     	return "forward:/search/"+pageNo;}
     	else
-    		return "forward:/login";
+    		return "redirect:/login";
     }
     
     @RequestMapping("/user/{username}")

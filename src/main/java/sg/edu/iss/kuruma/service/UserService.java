@@ -13,5 +13,6 @@ public interface UserService {
 	public User findByUsername(String name);
 	public User addUser(User user);
 	public List<Integer> getWishlist(String username);
+	public void save(User u);
 
 }
