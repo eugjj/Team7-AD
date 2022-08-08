@@ -10,21 +10,18 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import sg.edu.iss.kuruma.model.Car;
-import sg.edu.iss.kuruma.model.Session;
-import sg.edu.iss.kuruma.model.User;
-import sg.edu.iss.kuruma.repository.UserRepository;
 import sg.edu.iss.kuruma.service.CarService;
 import sg.edu.iss.kuruma.service.UserService;
 
 @Controller
+@SessionAttributes("username")
 public class SearchController {
 	
 	@Autowired
@@ -33,18 +30,19 @@ public class SearchController {
 	UserService uservice;
 	
 	private List<Car>listByPage;
-	private List<Car> listW = new ArrayList<Car>();
+	private List<Integer>wList=new ArrayList<Integer>();
 	private boolean atWishlist = false;
 	private int pageNo = 0;
-	private String searchEntry;
-	private final int ITEMS_PER_PAGE = 10;
-	
+	private String searchEntry; 
+	private String username="";
+	private final int ITEMS_PER_PAGE = 10;	
 	 
 	@RequestMapping("/search/sort-{entry}")
     public String sortCar(Model model, @RequestParam("by") String by, @PathVariable("entry") String entry) {
     	if (by.equals("Price")) {
     		listByPage = new ArrayList<Car>();
     		listByPage = cservice.sortSearchByPrice(searchEntry);
+    		pageNo = 0;
     		return "forward:/search/0";
     	}
     	// neeed to update when the other sorting buttons are there
@@ -52,51 +50,46 @@ public class SearchController {
     }
 	 
 	 @GetMapping("/search")
-	 public String showAllCars(@Param("entry") String entry, Model model) {
+	 public String showAllCars(@Param("entry") String entry, Model model, HttpSession session) {
+		 String uname = (String)session.getAttribute("username");
+			if (uname.isEmpty()) 
+				session.setAttribute("username", "Guest");
+		 try {
+		 	
+		 	wList = uservice.getWishlist(uname);
 	    	List<Car> list = cservice.findAllCars();
 	    	model.addAttribute("searchlist",list);
+	    	model.addAttribute("wishlist",wList);
 	    	model.addAttribute("entry", entry);
-			return "searchlist";
+			return "searchlist";}
+		 	catch(Exception e){
+		 		return "forward:/home";}
 		}
 	
     @PostMapping("/search")
-	public String searchCar(@RequestParam("entry") String entry, Model model, @SessionAttribute("session") Session session) {
+	public String searchCar(@RequestParam("entry") String entry, Model model, HttpSession session) {
     	if(entry != null) {
     		searchEntry = entry;
     		listByPage = new ArrayList<Car>();
         	listByPage = cservice.findSearchByEntry(searchEntry);}
-    	
     	atWishlist = false;
-    	if (session.getUsername() != null) {
-    		listW = uservice.getUser(session.getUserid()).getWishlist();
-    		model.addAttribute("wishlist",listW);
-    	}
-    	else {
-    		model.addAttribute("wishlist",listW);
-    	}
-    	
+    	username =(String) session.getAttribute("username");
     	List<Car> result = new ArrayList<Car>();
     	if (listByPage.size() > 0) {
     		for(int i=0; i<ITEMS_PER_PAGE; i++) {
     			result.add(listByPage.get(i));}}
     	pageNo = 0;
+    	wList = uservice.getWishlist(username);
     	model.addAttribute("searchlist",result);
+    	model.addAttribute("wishlist",wList);
     	model.addAttribute("entry", entry);
     	model.addAttribute("currentPage",1);
 		return "searchlist";
 	}
     
     @RequestMapping("/search/forward/{currentPage}")
-    public String searchCarsNext(@PathVariable(value = "currentPage") int page, Model model, @SessionAttribute("session") Session session) {
-    	if (session.getUsername() != null) {
-    		listW = uservice.getUser(session.getUserid()).getWishlist();
-    		model.addAttribute("wishlist",listW);
-    	}
-    	else {
-    		model.addAttribute("wishlist",listW);
-    	}
-    	
-    	List<Car> result = new ArrayList<Car>();
+    public String searchCarsNext(@PathVariable(value = "currentPage") int page, Model model) {
+    	List<Car> result = new ArrayList<Car>();    	
     	if (listByPage.size() / ITEMS_PER_PAGE < page) {
     		page--;
     	}
@@ -115,23 +108,16 @@ public class SearchController {
     			}
     		}
     	}
-    	pageNo = page-1;
+    	pageNo = page-1;    	
     	model.addAttribute("currentPage", page);
+    	model.addAttribute("wishlist",wList);
     	model.addAttribute("searchlist", result);
     	return "searchlist"; 
     	}
     
     @RequestMapping("/search/backward/{currentPage}")
-    public String searchCarsPrev(@PathVariable(value = "currentPage") int page, Model model, @SessionAttribute("session") Session session) {
-    	atWishlist = false;
-    	if (session.getUsername() != null) {
-    		listW = uservice.getUser(session.getUserid()).getWishlist();
-    		model.addAttribute("wishlist",listW);
-    	}
-    	else {
-    		model.addAttribute("wishlist",listW);
-    	}
-    	
+    public String searchCarsPrev(@PathVariable(value = "currentPage") int page, Model model) {
+    	atWishlist = false;    	
     	List<Car> result = new ArrayList<Car>();
     	if (1 == page) {
     		for(int i=0; i<ITEMS_PER_PAGE; i++) {
@@ -152,20 +138,13 @@ public class SearchController {
     	}
     	pageNo = page-1;
     	model.addAttribute("currentPage", page);
+    	model.addAttribute("wishlist",wList);
     	model.addAttribute("searchlist", result);
     	return "searchlist";	
     }
     
     @RequestMapping("/search/{currentPage}")
-    public String searchCarsCurrent(@PathVariable(value = "currentPage") int page, Model model, @SessionAttribute("session") Session session) {
-    	if (session.getUsername() != null) {
-    		listW = uservice.getUser(session.getUserid()).getWishlist();
-    		model.addAttribute("wishlist",listW);
-    	}
-    	else {
-    		model.addAttribute("wishlist",listW);
-    	}
-    	
+    public String searchCarsCurrent(@PathVariable("currentPage") int page, Model model) {
     	List<Car> result = new ArrayList<Car>();
     	if (listByPage.size() > 0) {
     		if ((listByPage.size() / ITEMS_PER_PAGE) + 1 >= page) {
@@ -179,48 +158,48 @@ public class SearchController {
     			}
     		}
     	}
+    	wList = uservice.getWishlist(username);
     	int pageNoModel = pageNo+1;
     	model.addAttribute("currentPage", pageNoModel);
+    	model.addAttribute("wishlist", wList);
     	model.addAttribute("searchlist", result);
-    	return "searchlist"; 
+    	return "searchlist";
     	}
     
     @RequestMapping("/cardetail/{id}")
-    public String cardetail(@PathVariable("id") Integer id, Model model, @SessionAttribute("session") Session session) {      
-    	Car cardetails = cservice.findById(id);
-    	session.setLastViewCar(cardetails);
+    public String cardetail(@PathVariable("id") Integer id, Model model, HttpSession session) {      
+        Car cardetails = cservice.findById(id);
         model.addAttribute("carD",cardetails);
+        session.setAttribute("lastcarviewed", id);
         return "cardetail";
     }
     
     @RequestMapping("/add/{id}")
     public String addToUserWishlist(@PathVariable("id") int carID) {
-    	Car car = cservice.findById(carID);
-    	uservice.addToWishlist(car);
-    	return "forward:/search/"+pageNo;
+    	if(!username.equals("Guest")){
+    		Car car = cservice.findById(carID);    	
+    		uservice.addToWishlist(car, username);
+    	return "forward:/search/"+pageNo;}
+    	else
+    		return "redirect:/login";
     }
     
-    @RequestMapping("/user/{id}")
-	public String wishlist(@PathVariable("id") Integer userID, Model model) {
-    	User user = uservice.getUser(userID);
-		List<Car> list = user.getWishlist();
-		model.addAttribute("searchlist",list);
-		model.addAttribute("wishlist",list);
-		if (list.size()!=0) {
+    @RequestMapping("/user/{username}")
+	public String wishlist(@PathVariable("username") String uname, Model model) {
+    	username = uname;
+    	wList = uservice.getWishlist(username);
+		model.addAttribute("searchlist",uservice.findByUsername(username).getWishlist());
+		model.addAttribute("wishlist",wList);
 		atWishlist = true;
-		return "searchlist";}
-		else
-			return "home";
+		return "searchlist";
 	}
     
     @RequestMapping("/remove/{id}")
 	public String removeFromWishlist(@PathVariable("id") int carID) {
-//to implement getting Userid from session
     	Car car = cservice.findById(carID);
-    	uservice.removeFromWishlist(car);
-    	
+    	uservice.removeFromWishlist(car, username);
     	if (atWishlist) {
-    		return "forward:/user/"+"1";
+    		return "forward:/user/"+username;
     	}
     	else
 		return "forward:/search/"+pageNo;

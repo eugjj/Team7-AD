@@ -6,8 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
+import javax.persistence.ManyToMany;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 
 import lombok.Data;
@@ -23,7 +22,8 @@ public class User {
 	private String username;
 	public String email;
 	private String password;	
-	@OneToMany
+	public String newPassword;
+	@ManyToMany
 	private List<Car> wishlist;
 	
 	public User(String username, String password, String email) {

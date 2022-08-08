@@ -1,11 +1,12 @@
 package sg.edu.iss.kuruma.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
+import javax.persistence.ManyToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -23,8 +24,8 @@ public class Car {
     private Double price;
     private String imgLink;    
     private String link;
-    @ManyToOne
-    private User user;
+    @ManyToMany(mappedBy="wishlist")
+    private List<User> user;
     
     public Car(String brand, String model, Double price, String imgLink, String link) {
         super();
@@ -33,11 +34,7 @@ public class Car {
         this.price = price;
         this.imgLink = imgLink;
         this.link = link;
-    }
-
- 
-
-        
+    }  
     
 
  

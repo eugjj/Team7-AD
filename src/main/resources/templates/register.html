@@ -2,44 +2,45 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">	
 	<link th:href="@{/css/style.css}" rel="stylesheet">
-
-	<title>Kuruma Login</title>
-	
-	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+	<script type="text/javascript" th:src="@{webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<title>Kuruma Registration</title>
 </head>
+
 <body>
+<div th:replace="fragment/general.html :: nav"></div>
 <div class="container-fluid text-center">
 
 	<div>
 		<img src="image/kurumalogo.png" class="img-fluid" />
 	</div>
 	
-	<form th:action="@{/login}" method="post" style="max-width: 350px; margin: 0 auto">
+	<form th:action="@{/register/new}" method="post" th:object="${user}" style="max-width: 350px; margin: 0 auto">
 		
 		<div class="border border-secondary rounded p-3">
-			<p>Login</p>
+			<p>Please fill in the following details</p>
 			<p>
-				<input type="email" name="email" class="form-control" placeholder="E-mail" required />
+				<input type="email" th:field="*{email}" name="email" class="form-control" placeholder="E-mail" required />
 			</p>
 			<p>
-				<input type="password" name="password" class="form-control" placeholder="Password" required />
+				<input type="text" th:field="*{username}" name="username" class="form-control" placeholder="Username" required />
 			</p>
 			<p>
-				<input type="checkbox" name="remember-me" />&nbsp;Remember Me
+				<input type="password" th:field="*{password}" name="password" class="form-control" placeholder="Password" required />
 			</p>
 			<p>
-				<input type="submit" value="Login" class="btn btn-primary" />
-			</p>			
+				<input type="submit" value="Register" class="btn btn-primary" />
+			</p>
+			<div class="container">
+		 <div>
+		 	<span style="color: red;" th:if="${message != null}">The username entered is being used by another user, please choose another username.</span>
+		 </div>
+		 <table>		
 		</div>
-	</form>
-	
-	<div>
-		<p>New to Kuruma?<a th:href="@{/register}">Register Now</a></p>
-	</div>
-	
+	</form>	
 </div>
-	<footer th:replace="fragment/footer.html :: footer"></footer>
 </body>
 </html>
