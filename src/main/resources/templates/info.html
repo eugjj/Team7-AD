@@ -1,42 +1,101 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<<<<<<< HEAD
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">	
-	<link th:href="@{/css/style.css}" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-	<script type="text/javascript" th:src="@{webjars/jquery/jquery.min.js}"></script>
-	<script type="text/javascript" th:src="@{webjars/bootstrap/js/bootstrap.min.js}"></script>
-</head>
-
-<body>
-	<div th:replace="fragment/general.html :: nav"></div>
-	<div class="container">
-		<p th:text="${sessionDetails.userid}"></p>
-		<p th:text="${sessionDetails.username}"></p>
-		<p th:text="${sessionDetails.lastViewCar.model}"></p>
-	</div>
-	<footer th:replace="fragment/footer.html :: footer"></footer>
-=======
+    <!-- Required meta tags -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">    
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">	
+    <!-- Bootstrap CSS -->
     <link th:href="@{/css/style.css}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-    <script type="text/javascript" th:src="@{webjars/jquery/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <title>Kuruma Cars</title>
 </head>
-
- 
-
 <body>
-    <div th:replace="fragment/general.html :: nav"></div>
-    <div class="container">
-        <p th:text="${sessionDetails.id}"></p>
-        <p th:text="${sessionDetails.price}"></p>
-        <p th:text="${sessionDetails.model}"></p>
+<div th:replace="fragment/general.html :: nav"></div>
+
+<main>
+
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Kuruma</h1>
+        <p class="lead text-muted">Welcome back to Kuruma! Check out our recommendation car listings based on our latest Machine Learning feature and up-to-date price analysis.</p>
+        <p>
+          <a th:href="@{/user/}+${username}" class="btn btn-primary my-2">View Wishlist</a>
+          <a th:href="@{/search}" class="btn btn-secondary my-2">Start Searching</a>
+        </p>
+      </div>
     </div>
-    <footer th:replace="fragment/footer.html :: footer"></footer>
->>>>>>> 87099fa7b8526aab50aeaecbb6a752f324ed8429
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+    <div><p>Based on your last search, similar listings that you may be interested in...</p></div>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+      	<!--last searched car info, saved in session-->
+        <div class="col">
+          <div class="card shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="200" th:xmlns="@{${prevCarSearched.imgLink}}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title th:text="${prevCarSearched.model}"></title><rect width="100%" height="100%" fill="#55595c"/><text x="70%" y="90%" fill="#eceeef" dy=".3em" th:text="${prevCarSearched.price}"></text></img>
+            <div class="card-body">
+              <p class="card-text" th:text="${prevCarSearched.model}"></p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a th:href="@{/cardetail/}+${prevCarSearched.Id}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                  <a th:href="@{/add/}+${prevCarSearched.Id}"><button type="button" class="btn btn-sm btn-outline-secondary">Wishlist</button></a>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--similar car models based on last searched car. showing car count based on SIMILAR_MODEL_NUM-->
+        <div class="col" th:each="car:${similarCarModels}">
+          <div class="card shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title th:text="${car.model}"></title><rect width="100%" height="100%" fill="#55595c"/><text x="70%" y="90%" fill="#eceeef" dy=".3em" th:text="${car.price}"></text></svg>
+
+            <div class="card-body">
+              <p class="card-text" th:text="${car.model}"></p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a th:href="@{/cardetail/}+${car.Id}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                  <a th:href="@{/add/}+${car.Id}"><button type="button" class="btn btn-sm btn-outline-secondary">Wishlist</button></a>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    
+    <!--ML clustering recommendation list-->
+    <div class="container pt-5">
+    <div><p>Consider these car models that belong to cluster grouping <span></span> using Kuruma's algorithm <a href="#" ><i class="bi bi-info-square"></i></a> ...</p></div>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+
+        <div class="col">
+          <div class="card shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="70%" y="90%" fill="#eceeef" dy=".3em" th:text="${prevCarSearched.price}"></text></svg>
+            <div class="card-body">
+              <p class="card-text" th:text="${prevCarSearched.model}"></p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a th:href="@{/cardetail/}+${prevCarSearched.Id}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                  <a th:href="@{/add/}+${prevCarSearched.Id}"><button type="button" class="btn btn-sm btn-outline-secondary">Wishlist</button></a>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Optional JavaScript for Bootscrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+	
 </body>
 </html>

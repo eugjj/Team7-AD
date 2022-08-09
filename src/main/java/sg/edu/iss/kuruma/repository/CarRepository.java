@@ -26,5 +26,8 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
 					"OR c.price LIKE %?1%" +
 		    		"ORDER BY c.price")
     List<Car> fndSearchSortByPrice(String entry);
+    
+    @Query("SELECT c from Car c WHERE c.model LIKE %?1%")
+    List<Car> findSimilarModels(String model);
 }
  
