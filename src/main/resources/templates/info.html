@@ -34,7 +34,8 @@
       	<!--last searched car info, saved in session-->
         <div class="col">
           <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="200" th:xmlns="@{${prevCarSearched.imgLink}}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title th:text="${prevCarSearched.model}"></title><rect width="100%" height="100%" fill="#55595c"/><text x="70%" y="90%" fill="#eceeef" dy=".3em" th:text="${prevCarSearched.price}"></text></img>
+          <svg class="bd-placeholder-img card-img-top" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title th:text="${prevCarSearched.model}"></title><rect width="100%" height="100%" fill="#55595c"/><text x="70%" y="90%" fill="#eceeef" dy=".3em" th:text="${prevCarSearched.price}"></text></svg>
+          	
             <div class="card-body">
               <p class="card-text" th:text="${prevCarSearched.model}"></p>
               <div class="d-flex justify-content-between align-items-center">
