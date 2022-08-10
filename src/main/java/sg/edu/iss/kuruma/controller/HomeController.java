@@ -1,7 +1,7 @@
 package sg.edu.iss.kuruma.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +23,8 @@ public class HomeController {
 	
 	@RequestMapping("/home") 
 	public String home(Model model, @Param("entry") String entry, HttpSession session) {
-		String uname = (String)session.getAttribute("username");
-		if (uname == null || uname.isEmpty()) 
-			session.setAttribute("username", "Guest");
+		if (session.isNew()) {
+			session.setAttribute("username", "Guest");}
 		model.addAttribute("entry", entry); 
 		return "home"; 
 		 }

@@ -13,7 +13,6 @@
 <div th:replace="fragment/general.html :: nav"></div>
 
 <main>
-
   <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
@@ -31,23 +30,7 @@
     <div class="container">
     <div><p>Based on your last search, similar listings that you may be interested in...</p></div>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
-      	<!--last searched car info, saved in session-->
-        <div class="col">
-          <div class="card shadow-sm">
-          <svg class="bd-placeholder-img card-img-top" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title th:text="${prevCarSearched.model}"></title><rect width="100%" height="100%" fill="#55595c"/><text x="70%" y="90%" fill="#eceeef" dy=".3em" th:text="${prevCarSearched.price}"></text></svg>
-          	
-            <div class="card-body">
-              <p class="card-text" th:text="${prevCarSearched.model}"></p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <a th:href="@{/cardetail/}+${prevCarSearched.Id}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
-                  <a th:href="@{/add/}+${prevCarSearched.Id}"><button type="button" class="btn btn-sm btn-outline-secondary">Wishlist</button></a>
-                </div>
-                <small class="text-muted">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
+
         <!--similar car models based on last searched car. showing car count based on SIMILAR_MODEL_NUM-->
         <div class="col" th:each="car:${similarCarModels}">
           <div class="card shadow-sm">

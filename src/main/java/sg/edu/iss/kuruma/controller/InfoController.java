@@ -21,7 +21,7 @@ public class InfoController {
 	CarService cservice;
 	Car cardetails;
 	List<Car> similarCarList = new ArrayList<Car>();
-	int SIMILAR_MODEL_NUM = 3;
+	int SIMILAR_MODEL_NUM = 4;
 	
 	@RequestMapping("/info")
     public String loadInfo(Model model, HttpSession session) {
