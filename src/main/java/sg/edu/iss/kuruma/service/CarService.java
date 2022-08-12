@@ -16,5 +16,5 @@ public interface CarService {
     public List<Car> sortSearchByPrice(String entry);
     public List<Car> sortSearchByManuYear(String entry);
     public List<Car> getSimilarCarModels(String model);
-    
+    public List<Car> androidList(List<Car> cars);
 }
