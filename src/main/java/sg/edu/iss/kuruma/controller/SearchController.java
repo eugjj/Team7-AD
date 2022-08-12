@@ -1,6 +1,8 @@
 package sg.edu.iss.kuruma.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -43,13 +45,18 @@ public class SearchController {
     	pageNo = 0;
 		if (by.equals("Price")) {
     		listByPage = cservice.sortSearchByPrice(searchEntry);
-    		
     	}
     	else if (by.equals("Year")) {
-    		listByPage = cservice.sortSearchByManuYear(entry);
+    		listByPage = cservice.sortSearchByManuYear(searchEntry);
     	}
     	else {
-    		
+    		listByPage = cservice.findSearchByEntry(searchEntry);
+    		Collections.sort(listByPage, new Comparator<Car>() {
+				@Override
+				public int compare(Car c1, Car c2) {
+					return calcValue(c1).compareTo(calcValue(c2));
+				}
+    		});
     	}
 		return "forward:/search/0";
     }
@@ -209,5 +216,8 @@ public class SearchController {
     	else
 		return "forward:/search/"+pageNo;
 	}
-
+    
+    public Double calcValue(Car car) {
+    	return ((car.getPrice() - car.getPredictedPrice())/car.getPredictedPrice())*100;
+    }
 }

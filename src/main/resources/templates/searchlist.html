@@ -49,7 +49,7 @@
 	<td><a href="cardetail.html" th:href="@{/cardetail/}+${car.Id}" th:text=${car.model}></a></td>
 	<td th:with="num=${car.price}"><span th:text="'$'+${#numbers.formatDecimal(num,3,'COMMA',0,'POINT')}">Price</span></td>
 	<td th:text="${car.manufacturedYear}">Manufactured Year</td>
-	<td th:with="result=${(car.price-car.predictedPrice)/car.predictedPrice * 100}"><span th:style="|${result > 0 ? 'color: green;' : 'color: red;'}|" th:text="${#numbers.formatDecimal(result,0,1)} +'%'"></span></td>
+	<td th:with="result=${(car.price-car.predictedPrice)/car.predictedPrice * 100}"><span th:style="|${result > 0 ? 'color: red;' : 'color: green;'}|" th:text="${#numbers.formatDecimal(result,0,1)} +'%'"></span></td>
 	
 	<td th:if="${not #lists.contains(wishlist, car.Id)}">
         <a class="btn btn-outline-primary" th:href="@{/add/}+${car.Id}">
