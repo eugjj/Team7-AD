@@ -28,25 +28,29 @@
 <form th:action="@{/search/sort-}+${entry}">
 <div class="btn-group-sm" role="group" aria-label="Sort by...">
 	<span>Sort search by...</span>
-	  <button class="btn btn-outline-primary" type="submit" th:name="by" th:value="Price">Price</button>
-	  <button class="btn btn-outline-primary">Age</button>
-	  <button class="btn btn-outline-primary">COE</button>
+	  <button class="btn btn-outline-primary" type="submit" th:name="by" th:value="Price">Cheapest Price</button>
+	  <button class="btn btn-outline-primary" type="submit" th:name="by" th:value="Year">Newest Manu. Year</button>
+	  <button class="btn btn-outline-primary" type="submit" th:name="by" th:value="Best">Best Value Buy</button>
 </div>
 </form>
 
 <table class="table table-hover p-5">
-	<tr><th class="col">Brand</th>
+	<th class="col">Brand</th>
 		<th class="col"></th>
 		<th class="col">Model</th>
 		<th class="col">Listing Price</th>
-		<th class="col">More Info</th>
+		<th class="col">Manu. Year</th>
+		<th class="col">Value <a><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16"><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+			</a></th>
 		<th class="col">Add to wishlist</th></tr>
 	<tr th:each="car:${searchlist}">
 	<td th:text=${car.brand}>Brand</td>
 	<td><img class="img-fluid" th:src="@{${car.imgLink}}"/></td>
-	<td><a href="cardetail.html" th:href="@{/cardetail/}+${car.Id}" th:text=${car.model}/></td>
-	<td th:text=${car.price}>Price</td>
-	<td><a href="cardetail.html" th:href="@{/cardetail/}+${car.Id}" ><i class="bi bi-info-square"></i></a></td>
+	<td><a href="cardetail.html" th:href="@{/cardetail/}+${car.Id}" th:text=${car.model}></a></td>
+	<td th:with="num=${car.price}"><span th:text="'$'+${#numbers.formatDecimal(num,3,'COMMA',0,'POINT')}">Price</span></td>
+	<td th:text="${car.manufacturedYear}">Manufactured Year</td>
+	<td th:with="result=${(car.price-car.predictedPrice)/car.predictedPrice * 100}"><span th:style="|${result > 0 ? 'color: green;' : 'color: red;'}|" th:text="${#numbers.formatDecimal(result,0,1)} +'%'"></span></td>
+	
 	<td th:if="${not #lists.contains(wishlist, car.Id)}">
         <a class="btn btn-outline-primary" th:href="@{/add/}+${car.Id}">
 		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">

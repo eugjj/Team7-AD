@@ -39,14 +39,19 @@ public class SearchController {
 	 
 	@RequestMapping("/search/sort-{entry}")
     public String sortCar(Model model, @RequestParam("by") String by, @PathVariable("entry") String entry) {
-    	if (by.equals("Price")) {
-    		listByPage = new ArrayList<Car>();
+    	listByPage = new ArrayList<Car>();
+    	pageNo = 0;
+		if (by.equals("Price")) {
     		listByPage = cservice.sortSearchByPrice(searchEntry);
-    		pageNo = 0;
-    		return "forward:/search/0";
+    		
     	}
-    	// neeed to update when the other sorting buttons are there
-    	else return "home";
+    	else if (by.equals("Year")) {
+    		listByPage = cservice.sortSearchByManuYear(entry);
+    	}
+    	else {
+    		
+    	}
+		return "forward:/search/0";
     }
 	 
 	 @GetMapping("/search")
@@ -203,6 +208,6 @@ public class SearchController {
     	}
     	else
 		return "forward:/search/"+pageNo;
-	}    
+	}
 
 }

@@ -24,20 +24,33 @@ public class Car {
     private Double price;
     private String imgLink;    
     private String link;
+    private Double coe;
+    private Double mileageKm;
+    private Double engineCapacity;
+    private String regDate;
+    private Integer manufacturedYear;
+    private Integer numOfOwner;
+    private Double predictedPrice;
     @ManyToMany(mappedBy="wishlist")
     private List<User> user;
-    
-    public Car(String brand, String model, Double price, String imgLink, String link) {
-        super();
-        this.brand = brand;
-        this.model = model;
-        this.price = price;
-        this.imgLink = imgLink;
-        this.link = link;
-    }  
-    
 
- 
+	public Car(String brand, String model, Double price, String imgLink, String link, Double coe, Double mileageKm,
+			Double engineCapacity, String regDate, Integer manufacturedYear, Integer numOfOwner,
+			Double predictedPrice) {
+		super();
+		this.brand = brand;
+		this.model = model;
+		this.price = price;
+		this.imgLink = imgLink;
+		this.link = link;
+		this.coe = coe;
+		this.mileageKm = mileageKm;
+		this.engineCapacity = engineCapacity;
+		this.regDate = regDate;
+		this.manufacturedYear = manufacturedYear;
+		this.numOfOwner = numOfOwner;
+		this.predictedPrice = predictedPrice;
+	}  
 
 }
  

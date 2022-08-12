@@ -66,6 +66,11 @@ public class CarServiceImpl implements CarService {
 	public List<Car> sortSearchByPrice(String entry) {
 		return crepo.fndSearchSortByPrice(entry);
 	}
+	
+	@Override
+	public List<Car> sortSearchByManuYear(String entry) {
+		return crepo.findSearchSortByManuYear(entry);
+	}
 
 	@Override
 	public List<Car> getSimilarCarModels(String model) {

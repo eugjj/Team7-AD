@@ -11,29 +11,51 @@
 </head>
 <body>
 <div th:replace="fragment/general.html :: nav"></div>
-<h2 th:text="${carD.model}"></h2>     
-<table>
- 	<tr>
- 		<td></td>
- 		<td> <img th:src="@{${carD.imgLink}}"/></td> 
- 	</tr>
-	<tr>
-		<td>Brand</td>
-		<td> <span th:text="${carD.brand}"></td> 
-	</tr>
-	<tr>
-		<td>Model</td>
-		<td> <span th:text="${carD.model}"></td>
-	</tr>
-	<tr>
-		<td>Price</td>
-		<td> <span th:text="${carD.price}"></td> 
-	</tr>
-	<tr>
-		<td>Link</td>
-		<td><a th:href="@{${carD.link}}" target="_blank" rel="noopener noreferrer"> Link to car listing </a></td>
-	</tr>
-</table>
+<main>
+<section class="py-5 text-center container">
+<div class="row py-lg-5">
+	<div class="col-lg-6 col-md-8 mx-auto">
+		<h3 th:text="${carD.model}"></h3>     
+		<div><table class="table">
+		 	<tr>
+		 		<td></td>
+		 		<td> <img class="img-fluid" th:src="@{${carD.imgLink}}"/></td> 
+		 	</tr>
+			<tr>
+				<th>Brand</th>
+				<td> <span th:text="${carD.brand}"></td> 
+			</tr>
+			<tr>
+				<th>Model</th>
+				<td> <span th:text="${carD.model}"></td>
+			</tr>
+			<tr>
+				<th>Price</th>
+				<td> <span th:text="${carD.price}"></td> 
+			</tr>
+			<tr>
+				<th></th>
+				<td><a th:href="@{${carD.link}}" target="_blank" rel="noopener noreferrer"> Link to car listing </a></td>
+			</tr>
+		</table></div>
+	</div>
+	<div class="col-lg-6 col-md-8 mx-auto">
+		<h3>Price Analysis</h3>
+	</div>
+	</div>
+</section>
+
+<div class="row py-lg-5">
+	<div class="col-lg-6 col-md-8 mx-auto">
+		<h3>Basic Analysis</h3>
+	</div></div>
+		
+<div class="row py-lg-5">
+	<div class="col-lg-6 col-md-8 mx-auto">
+		<h3>Expert Analysis</h3>
+	</div></div>
+
+</main>
 <div th:replace="fragment/footer.html :: footer"></div>
 </body>
 </html>>
