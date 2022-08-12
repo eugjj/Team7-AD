@@ -87,5 +87,10 @@ public class CarServiceImpl implements CarService {
     	list.add(car);}
 		return list;
 	}
+	
+	@Override
+	public Double calcValue(Car car) {
+    	return ((car.getPrice() - car.getPredictedPrice())/car.getPredictedPrice())*100;
+    }
 
 }

@@ -54,7 +54,7 @@ public class SearchController {
     		Collections.sort(listByPage, new Comparator<Car>() {
 				@Override
 				public int compare(Car c1, Car c2) {
-					return calcValue(c1).compareTo(calcValue(c2));
+					return cservice.calcValue(c1).compareTo(cservice.calcValue(c2));
 				}
     		});
     	}
@@ -217,7 +217,4 @@ public class SearchController {
 		return "forward:/search/"+pageNo;
 	}
     
-    public Double calcValue(Car car) {
-    	return ((car.getPrice() - car.getPredictedPrice())/car.getPredictedPrice())*100;
-    }
 }

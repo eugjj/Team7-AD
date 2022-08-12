@@ -1,6 +1,8 @@
 package sg.edu.iss.kuruma.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +23,8 @@ public class InfoController {
 	CarService cservice;
 	Car cardetails;
 	List<Car> similarCarList = new ArrayList<Car>();
-	int SIMILAR_MODEL_NUM = 4;
+	List<Car> bestValueList = new ArrayList<Car>();
+	int SHOW_MODEL_NUM = 4;
 	
 	@RequestMapping("/info")
     public String loadInfo(Model model, HttpSession session) {
@@ -29,13 +32,20 @@ public class InfoController {
 		Integer carid = (Integer) session.getAttribute("lastcarviewed");
 		cardetails = cservice.findById(carid);
 		
-		// get SIMILAR_MODEL_NUM number to show similar car models based on last search car
+		// get SHOW_MODEL_NUM number to show similar car models based on last search car
 		similarCarList = cservice.getSimilarCarModels(getGenericModelString(cardetails))
 				.stream()
-				.limit(SIMILAR_MODEL_NUM)
+				.limit(SHOW_MODEL_NUM)
 				.collect(Collectors.toList());
 		
+		// get SHOW_MODEL_NUM number to show best value (based on listing and predicted price)
+		bestValueList = cservice.findAllCars().stream()
+					.sorted((c1,c2)->cservice.calcValue(c1).compareTo(cservice.calcValue(c2)))
+					.limit(SHOW_MODEL_NUM)
+					.collect(Collectors.toList());
+		
 		model.addAttribute("similarCarModels", similarCarList);
+		model.addAttribute("bestBuy", bestValueList);
 		model.addAttribute("prevCarSearched", cardetails);
 		model.addAttribute("username", session.getAttribute("username"));
         return "info";

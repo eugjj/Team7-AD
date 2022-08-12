@@ -1,5 +1,7 @@
 package sg.edu.iss.kuruma.controller;
 
+import java.util.List;
+
 //import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,6 +56,12 @@ public class CarController {
     	catch (Exception ex) {
     		return "Error when sending email: " + ex;
     	}
+    }
+    
+    @RequestMapping("/test1")
+    public List<Car> getAllData(){
+    	List<Car> list = cservice.findAllCars();
+    	return cservice.androidList(list);
     }
     
 }
