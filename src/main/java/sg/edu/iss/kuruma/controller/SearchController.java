@@ -183,6 +183,11 @@ public class SearchController {
         Car cardetails = cservice.findById(id);
         model.addAttribute("carD",cardetails);
         session.setAttribute("lastcarviewed", id);
+        
+        // car analysis 
+        String [] strList = cardetails.getModel().split(" ");
+		String carmodel = strList[0] + " " + strList[1];
+		model.addAttribute("carmodel", carmodel);
         return "cardetail";
     }
     

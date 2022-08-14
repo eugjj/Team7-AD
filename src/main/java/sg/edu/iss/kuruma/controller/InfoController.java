@@ -32,17 +32,19 @@ public class InfoController {
 		Integer carid = (Integer) session.getAttribute("lastcarviewed");
 		cardetails = cservice.findById(carid);
 		
-		// get SHOW_MODEL_NUM number to show similar car models based on last search car
+		// show similar car models based on last search car
 		similarCarList = cservice.getSimilarCarModels(getGenericModelString(cardetails))
 				.stream()
 				.limit(SHOW_MODEL_NUM)
 				.collect(Collectors.toList());
 		
-		// get SHOW_MODEL_NUM number to show best value (based on listing and predicted price)
+		// show best value (based on listing and predicted price)
 		bestValueList = cservice.findAllCars().stream()
 					.sorted((c1,c2)->cservice.calcValue(c1).compareTo(cservice.calcValue(c2)))
 					.limit(SHOW_MODEL_NUM)
 					.collect(Collectors.toList());
+		
+		// show similar clustering results as last search car
 		
 		model.addAttribute("similarCarModels", similarCarList);
 		model.addAttribute("bestBuy", bestValueList);

@@ -28,4 +28,16 @@ public class HomeController {
 		model.addAttribute("entry", entry); 
 		return "home"; 
 		 }
+	
+	@RequestMapping("/basicmodel")
+	public String loadbasic(Model model, HttpSession session) {
+		model.addAttribute("username", session.getAttribute("username"));
+		return "basicmodel";
+	}
+	
+	@RequestMapping("/expertmodel")
+	public String loadexpert(Model model, HttpSession session) {
+		model.addAttribute("username", session.getAttribute("username"));
+		return "expertmodel";
+	}
 }

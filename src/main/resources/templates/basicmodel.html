@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+	<script type="text/javascript" th:src="@{webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{webjars/bootstrap/js/bootstrap.min.js}"></script>
+<title>Kuruma's Analysis Model</title>
+</head>
+<body>
+<div th:replace="fragment/general.html :: nav"></div>
+
+<section class="py-5 container">
+<h3>Kuruma's Basic Analysis Model</h3>
+<p>Check out our basic car analysis model. We classify all car models into four groupings (A, B, C and D) based on their basic car features (e.g. fuel consumption and base horsepower) and their prices. </p>
+<p>Click on your preferred car model below to find out more!
+</p>
+<br></br>
+<iframe 
+    title="CarDashBoard_Analysisv1" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=f95c79dc-805d-4579-bb24-9f65544cce08&autoAuth=true&ctid=5ba5ef5e-3109-4e77-85bd-cfeb0d347e82&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXNvdXRoLWVhc3QtYXNpYS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true">
+</iframe>
+</section>
+
+<div th:replace="fragment/footer.html :: footer"></div>
+</body>
+</html>
