@@ -40,4 +40,11 @@ public class HomeController {
 		model.addAttribute("username", session.getAttribute("username"));
 		return "expertmodel";
 	}
+	
+	@RequestMapping("/loan")
+    public String loan(Model model, HttpSession session) {
+        model.addAttribute("username", session.getAttribute("username"));
+        return "loan";
+        
+        }
 }

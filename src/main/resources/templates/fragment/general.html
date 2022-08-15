@@ -1,46 +1,55 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/home}">Kuruma</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/search}">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/contactus}">Contact Us</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/aboutus}">About Us</a>
-            </li>
+<form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
+        <input type="submit" />
+</form>
 
-        </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-1">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/home}">Kuruma</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto my-1 my-sm-0 navbar-nav-scroll" style="--bs-scroll-height: 50px;">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" th:href="@{/search}">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Info
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" th:href="@{/info}">Recommendation Listings</a></li>
+            <li><a class="dropdown-item" th:href="@{/contactus}">Contact Us</a></li>
+            <li><a class="dropdown-item" th:href="@{/aboutus}">About Us</a></li>
+            <li><a class="dropdown-item" th:href="@{/loan}">Loan Calculator</a></li>
+          </ul>
+        </li>
+      </ul>
+
+	<ul class="navbar-nav ms-auto my-1 my-sm-0 navbar-nav-scroll" style="--bs-scroll-height: 50px;">
+         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Account
+          </a>
+          <div th:switch="true" style="color:rgb(192, 192, 192);">
+            <th:case="${username != null}" th:text="${username}">
+            <th:case="${username == Guest}" th:text="${username}">
+        </div>
+    <ul class="dropdown-menu dropdown-menu-end">
+          <div th:if="${#strings.equals(username, 'Guest')}">
+            <li><a class="dropdown-item" th:href="@{/login}">Login</a></li>
+            <li><a class="dropdown-item" th:href="@{/register}">Register</a></li>
+          </div>
+         <div th:if="${not#strings.equals(username, 'Guest')}">
+            <li><a class="dropdown-item" th:href="@{/user/}+${username}" th:text="Wishlist">Wishlist</a></li>
+            <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+          </div>
+          <li><a class="dropdown-item" th:href="@{/change}">Change Password</a></li>
+          </ul>
+        </li>
+          
+      </ul>
     </div>
-        
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    
-    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" th:if="${#strings.equals(username, 'Guest')}">
-    	
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/register">Register Now</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
-            </li>
-        </ul>
-    </div>
-    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" th:if="${not#strings.equals(username, 'Guest')}">
-    	
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/user/}+${username}" th:text="${username}+' - Wishlist'"></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/logout">Logout</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+  </div>
+</nav>  
+          

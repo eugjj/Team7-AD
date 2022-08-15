@@ -1,6 +1,7 @@
 package sg.edu.iss.kuruma.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 //import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +61,10 @@ public class CarController {
     
     @RequestMapping("/test1")
     public List<Car> getAllData(){
-    	List<Car> list = cservice.findAllCars();
+    	List<Car> list = cservice.findAllCars().stream().limit(20).collect(Collectors.toList());
+    	System.out.println(list.size());
     	return cservice.androidList(list);
     }
+  
     
 }

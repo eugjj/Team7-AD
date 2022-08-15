@@ -61,6 +61,7 @@ public class LoginController {
 		}
 		if (authenticateUser(user, u)) {
 			session.setAttribute("username", u.getUsername());
+			System.out.println(session.getAttribute("username"));
 			return "forward:/info";
 		}
 		return "forward:/login";

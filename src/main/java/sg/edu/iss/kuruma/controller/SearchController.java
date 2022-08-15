@@ -64,8 +64,10 @@ public class SearchController {
 	 @GetMapping("/search")
 	 public String showAllCars(@Param("entry") String entry, Model model, HttpSession session) {
 		 String uname = (String)session.getAttribute("username");
-			if (uname.isEmpty()) 
-				session.setAttribute("username", "Guest");
+		 username = uname;
+			/*
+			 * if (uname.isEmpty()) session.setAttribute("username", "Guest");
+			 */
 		 try {
 		 	
 		 	wList = uservice.getWishlist(uname);
@@ -193,12 +195,14 @@ public class SearchController {
     
     @RequestMapping("/add/{id}")
     public String addToUserWishlist(@PathVariable("id") int carID) {
-    	if(!username.equals("Guest")){
+    	if (!username.equals("Guest")){
     		Car car = cservice.findById(carID);    	
     		uservice.addToWishlist(car, username);
-    	return "forward:/search/"+pageNo;}
-    	else
+    	return "forward:/search/"+pageNo;
+    	}
+    	else {
     		return "redirect:/login";
+    	}
     }
     
     @RequestMapping("/user/{username}")
