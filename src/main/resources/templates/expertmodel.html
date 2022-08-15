@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
 	<link th:href="@{/css/style.css}" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/1494831541.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 <title>Kuruma's Analysis Model</title>
@@ -12,28 +13,28 @@
 <body>
 <div th:replace="fragment/general.html :: nav"></div>
 
-<section class="py-5 container">
+<section class="py-3 container">
 <h3>Kuruma's car Analysis Model using Machine Learning</h3>
 <br></br>
-<h4>Basic Model</h4>
-<table align="center" border="1" cellspacing="0" cellpadding="0" class="table">
+<h4><i class="fa-solid fa-chart-line"></i> Basic Model</h4>
+<table align="center" class="table table-hover">
     <tbody>
     <tr>
         <td align="top" style="width:100px;"><p><strong>Feature</strong></p></td>
-        <td align="center" style="width:300px;"><p>Fuel consumption</p></td>
-        <td align="center" style="width:300px;"><p>Price</p></td>
-        <td align="center" style="width:300px;"><p>Bhp</p></td>
+        <td align="center" style="width:300px;"><p>Fuel consumption <i class="fa-solid fa-gas-pump"></i></p></td>
+        <td align="center" style="width:300px;"><p>Price <i class="fa-solid fa-comment-dollar"></i></p></td>
+        <td align="center" style="width:300px;"><p>Bhp <i class="fa-solid fa-car-on"></i></p></td>
     </tr>
     
     <tr>
-        <td align="top" ><p><strong>Focus</strong></p></td>
+        <td align="top" ><p><strong>Focus </strong><i class="fa-solid fa-eye"></i></p></td>
         <td align="top" >This feature focus mainly on the fuel consumption of a car. The higher Fuel is, the longer distance this car could run with one litre of gasoline.</td>
         <td align="top" >Price of the car in SGD</td>
         <td align="top" >Bhp also known as base horsepower. This feature represents the power of the car.</td>
     </tr>
 
     <tr>
-    <td align="top" ><p><strong>Definition</strong></p></td>
+    <td align="top" ><p><strong>Definition </strong><i class="fa-solid fa-comment-dots"></i></p></td>
     <td align="top" ><p>Calculated in kilometers per litre (Km/L), to represent the fuel consumption rate of the car. </p></td>
     <td align="top" >To indicate the cost-value of a car, listing price is one of our most important feature. </td>
     <td align="top" >Bhp will be used to measure the power of the car. Bhp tends to be higher in sports and luxury cars due to their engine.</td>
@@ -42,25 +43,25 @@
     </tbody>
     </table>
 <br></br>
-<h4>Expert Model<h4></h4>
-<table align="center" border="1" cellspacing="0" cellpadding="0" class="table">
+<h4><i class="fa-solid fa-magnifying-glass-chart"></i> Expert Model<h4></h4>
+<table align="center" class="table table-hover">
     <tbody>
     <tr>
         <td align="top" style="width:100px;"><p><strong>Feature</strong></p></td>
-        <td align="center" style="width:300px;"><p>Sum Index</p></td>
-        <td align="center" style="width:300px;"><p>Value Index</p></td>
-        <td align="center" style="width:300px;"><p>Fuel Index</p></td>
+        <td align="center" style="width:300px;"><p>Sum Index <i class="fa-solid fa-square-plus"></i></p></td>
+        <td align="center" style="width:300px;"><p>Value Index <i class="fa-solid fa-hand-holding-dollar"></i></p></td>
+        <td align="center" style="width:300px;"><p>Fuel Index <i class="fa-solid fa-gas-pump"></i></p></td>
     </tr>
     
     <tr>
-        <td align="top" ><p><strong>Focus</strong></p></td>
+        <td align="top" ><p><strong>Focus </strong><i class="fa-solid fa-eye"></i></p></td>
         <td align="top" > Focuses on the fuel consumption, power and price of the car. The higher Sum Index a car has, the more this car is cost-value (value-for-money!).</td>
         <td align="top" > Value Index focus on the power-value of a car. The higher Value Index, the higher power efficiency the car is, based on its price.</td>
         <td align="top" > Fuel Index focus on the 'fuel consumption-value' of a car. The higher Fuel Index, the better fuel comsumption efficiency the car is, based on the price.</td>
     </tr>
     
     <tr>
-        <td align="top" ><p><strong>Definition</strong></p></td>
+        <td align="top" ><p><strong>Definition </strong><i class="fa-solid fa-comment-dots"></i></p></td>
         <td align="top" > Sum Index is calculated by summing the car's respective' Value Index and the Fuel Index</td>
         <td align="top" > Value Index is calculated by 'Bhp / Price * 1000. It tells us the base horsepower of the car per SGD.</td>
         <td align="top" > Fuel Index is calculated by 'Fuel / Price * 100000'. It show us fuel efficiency of th car per SGD.</td>
@@ -70,13 +71,13 @@
     </table>
     <br></br>
     
-<h4>How Kuruma's Machine Learning works</h4>
+<h3><i class="fa-solid fa-brain"></i> How Kuruma's Machine Learning works</h3>
 <p class="mb-4">Check out how we use Machine Learning to build our Basic Model and Expert Model.
     <br>SELECT the car model you're interested in to view its detailed analysis! 
 </p>
 
 <iframe 
-    title="CarDashBoard_v1" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=2c2d6fbf-1fd9-489b-9396-ee41474d00b3&autoAuth=true&ctid=5ba5ef5e-3109-4e77-85bd-cfeb0d347e82&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXNvdXRoLWVhc3QtYXNpYS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true">
+    title="CarDashBoard_v1" width="1140" height="600" src="https://app.powerbi.com/reportEmbed?reportId=2c2d6fbf-1fd9-489b-9396-ee41474d00b3&autoAuth=true&ctid=5ba5ef5e-3109-4e77-85bd-cfeb0d347e82&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXNvdXRoLWVhc3QtYXNpYS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true">
 </iframe>
 </section>
 

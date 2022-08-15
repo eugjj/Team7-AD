@@ -4,6 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">	
 	<link th:href="@{/css/style.css}" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/1494831541.js" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
@@ -11,23 +12,23 @@
 
 <body>
 	<div th:replace="fragment/general.html :: nav"></div>
-	<section>
-	<form th:action="@{/search}" method="POST" style="max-width:350px; margin: 0 auto">
+
+<section class="mt-5">
+	<form th:action="@{/search}" method="POST" style="max-width:500px; margin: 0 auto">
 	<div class="border border-secondary rounded p-3">
 			
-		 <table>
-	       		<tr style = "padding: 10px">
-	                <td>Search Kuruma:</td>
-	                <td><input type="text" placeholder="Start your Kuruma car search..." name="entry" th:value="${entry}"/></td>
+		 <table class="table table-borderless">
+	       		<tr>
+	                <td><input type="text" class="form-control" id="inputdefault" placeholder="Begin your Kuruma car search now..." name="entry" th:value="${entry}"/></td>
 	            </tr>
 	            
-	            <tr style = "padding: 10px">
-	                <td colspan="2"><button>Search</button></td>
+	            <tr>
+	                <td class="text-end" colspan="2"><button class="btn btn-primary">Search <i class="fa-solid fa-magnifying-glass-arrow-right"></button></td>
 	            </tr>
 	    </table>
     </form>
 	</div>
-	</section>
+</section>
 
 	<footer th:replace="fragment/footer.html :: footer"></footer>
 </body>

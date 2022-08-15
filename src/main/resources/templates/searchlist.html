@@ -6,6 +6,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
     <link th:href="@{/css/style.css}" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/1494831541.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     <title>Kuruma Cars</title>
@@ -18,9 +19,9 @@
 <form th:action="@{/search}" method="POST">
 		 <table class="table table-borderless">
 	       		<tr style = "padding: 10px">
-	                <td><label for="searchBox" class="form-label text-right">Search Kuruma </label></td>
+	                <td><label for="searchBox" class="form-label text-end"></label>Searching for...</td>
 	                <td><input type="text" class="form-control" placeholder="Filter by entry...." th:name="entry" th:value="${entry}"/></td>
-	                <td><button class="btn btn-primary">Search</button></td>
+	                <td><button class="btn btn-primary">Search <i class="fa-solid fa-magnifying-glass"></i></button></td>
 	    </table>
  </form></div>
  
@@ -36,14 +37,14 @@
 </form>
 
 <table class="table table-hover p-5">
-	<th class="col">Brand</th>
+	<th class="col"><i class="fa-solid fa-copyright"></i> Brand</th>
 		<th class="col"></th>
-		<th class="col">Model</th>
-		<th class="col">Listing Price</th>
-		<th class="col">Manu. Year</th>
-		<th class="col">Value <a><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16"><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-			</a></th>
-		<th class="col">Add to wishlist</th></tr>
+		<th class="col"><i class="fa-solid fa-car-side"></i> Model</th>
+		<th class="col"><i class="fa-solid fa-comment-dollar"></i> Listing Price</th>
+		<th class="col"><i class="fa-regular fa-calendar"></i> Manu. Year</th>
+		<th class="col"><a><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16"><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+			</a> Value</th>
+		<th class="col"><i class="fa-brands fa-gratipay"></i> Wishlist</th></tr>
 	<tr th:each="car:${searchlist}">
 	<td th:text=${car.brand}>Brand</td>
 	<td><img class="img-fluid" th:src="@{${car.imgLink}}"/></td>
@@ -70,9 +71,9 @@
 	<div class="container-fluid">
   		<nav aria-label="Page navigation">
   			<ul class="pagination">
-    			<li class="page-item"><a class="page-link" th:href="@{/search/backward/}+${currentPage}">Previous</a></li>
+    			<li class="page-item"><a class="page-link" th:href="@{/search/backward/}+${currentPage}"><i class="fa-solid fa-circle-chevron-left"></i> Previous</a></li>
     			<li class="page-item"><a class="page-link" th:text="${currentPage}"></a></li>
-			    <li class="page-item"><a class="page-link" th:href="@{/search/forward/}+${currentPage}">Next</a></li>
+			    <li class="page-item"><a class="page-link" th:href="@{/search/forward/}+${currentPage}">Next <i class="fa-solid fa-circle-chevron-right"></i></a></li>
 			  </ul>
 		</nav>
 	</div></div></div>

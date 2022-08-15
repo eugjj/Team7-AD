@@ -6,6 +6,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
     <link th:href="@{/css/style.css}" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/1494831541.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     <title>Kuruma Cars</title>
@@ -14,14 +15,14 @@
 <div th:replace="fragment/general.html :: nav"></div>
 
 <main>
-  <section class="py-5 text-center container">
+  <section class="py-3 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Kuruma</h1>
+        <h1 class="fw-light">Kuruma <i class="fa-solid fa-car-on"></i></h1>
         <p class="lead text-muted">Welcome back to Kuruma! Check out our recommendation car listings based on our latest Machine Learning feature and up-to-date price analysis.</p>
         <p>
-          <a th:href="@{/user/}+${username}" class="btn btn-primary my-2">View Wishlist</a>
-          <a th:href="@{/search}" class="btn btn-secondary my-2">Start Searching</a>
+          <a th:href="@{/user/}+${username}" class="btn btn-primary my-2">View Wishlist <i class="fa-brands fa-gratipay"></i></a>
+          <a th:href="@{/search}" class="btn btn-secondary my-2">Start Searching <i class="fa-solid fa-magnifying-glass-arrow-right"></i></a>
         </p>
       </div>
     </div>
@@ -29,7 +30,7 @@
 
   <div class="album py-5 bg-light">
     <div class="container">
-    <div><p>Based on your last search, similar listings that you may be interested in...</p></div>
+    <div><p><i class="fa-regular fa-bookmark"></i> Based on your last search, similar listings that you may be interested in...</p></div>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
 
         <!--similar car models based on last searched car. showing car count based on SIMILAR_MODEL_NUM-->
@@ -55,7 +56,7 @@
     
     <!--ML clustering recommendation list-->
     <div class="container pt-5">
-    <div><p>Consider these car models that belong to groupings <span></span> using Kuruma's Machine Learning algorithm <a href="#" ><i class="bi bi-info-square"></i></a> ...</p></div>
+    <div><p><i class="fa-solid fa-robot"></i> Consider these car models that belong to groupings <span></span> using Kuruma's Machine Learning algorithm <a href="#" ><i class="bi bi-info-square"></i></a> ...</p></div>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
 
         <div class="col">
@@ -78,8 +79,8 @@
   </div>
   
   <!--showing the best value based on predicted and listing price-->
-  <div class="container">
-    <div><p>Do not miss these BEST VALUE-for-money listings!</p></div>
+  <div class="container mb-5">
+    <div><p><i class="fa-solid fa-money-bill-wave"></i> Do not miss these BEST VALUE-for-money listings!</p></div>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
         <div class="col" th:each="car:${bestBuy}">
           <div class="card shadow-sm">

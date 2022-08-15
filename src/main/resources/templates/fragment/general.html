@@ -4,7 +4,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-1">
   <div class="container-fluid">
-    <a class="navbar-brand" th:href="@{/home}">Kuruma</a>
+    <a class="navbar-brand" th:href="@{/home}">Kuruma <i class="fa-solid fa-car-on"></i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -18,10 +18,10 @@
             Useful Info
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" th:href="@{/info}">Recommendation Listings</a></li>
-            <li><a class="dropdown-item" th:href="@{/contactus}">Contact Us</a></li>
-            <li><a class="dropdown-item" th:href="@{/aboutus}">About Us</a></li>
-            <li><a class="dropdown-item" th:href="@{/loan}">Loan Calculator</a></li>
+            <li><a class="dropdown-item" th:href="@{/info}">Recommendation <i class="fa-solid fa-heart-circle-exclamation"></i></a></li>
+            <li><a class="dropdown-item" th:href="@{/contactus}">Contact Us <i class="fa-solid fa-address-book"></i></a></li>
+            <li><a class="dropdown-item" th:href="@{/aboutus}">About Us <i class="fa-solid fa-users"></i></a></li>
+            <li><a class="dropdown-item" th:href="@{/loan}">Loan Calculator <i class="fa-solid fa-calculator"></i></a></li>
           </ul>
         </li>
       </ul>
@@ -32,14 +32,14 @@
 
     <ul class="dropdown-menu dropdown-menu-end">
           <div th:if="${#strings.equals(username, 'Guest')}">
-            <li><a class="dropdown-item" th:href="@{/login}">Login</a></li>
-            <li><a class="dropdown-item" th:href="@{/register}">Register</a></li>
+            <li><a class="dropdown-item" th:href="@{/login}">Login <i class="fa-solid fa-arrow-right-to-bracket"></i></a></li>
+            <li><a class="dropdown-item" th:href="@{/register}">Register <i class="fa-solid fa-pen-to-square"></i></a></li>
           </div>
          <div th:if="${not#strings.equals(username, 'Guest')}">
-            <li><a class="dropdown-item" th:href="@{/user/}+${username}" th:text="Wishlist">Wishlist</a></li>
-            <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+            <li><a class="dropdown-item" th:href="@{/user/}+${username}">My Wishlist <i class="fa-solid fa-heart-circle-plus"></i></a></li>
+            <li><a class="dropdown-item" th:href="@{/logout}">Logout <i class="fa-solid fa-right-from-bracket"></i></a></li>
           </div>
-          <li><a class="dropdown-item" th:href="@{/change}">Change Password</a></li>
+          <li><a class="dropdown-item" th:href="@{/change}">Change Password <i class="fa-solid fa-key"></i></a></li>
           </ul>
         </li>
           
