@@ -14,5 +14,6 @@ public interface CarService {
     public List<Car> findSearchByEntry(String entry);
     public List<Car> findAllCars();
     public List<Car> sortSearchByPrice(String entry);
+	public List<Car> androidList(List<Car> cars);
 
 }

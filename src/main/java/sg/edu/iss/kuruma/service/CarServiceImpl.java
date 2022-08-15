@@ -1,5 +1,6 @@
 package sg.edu.iss.kuruma.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +66,15 @@ public class CarServiceImpl implements CarService {
 	@Override
 	public List<Car> sortSearchByPrice(String entry) {
 		return crepo.fndSearchSortByPrice(entry);
+	}
+	
+	@Override
+	@Transactional
+	public List<Car> androidList(List<Car> cars) {
+		List<Car> list = new ArrayList<Car>();
+		for(Car c:cars) {
+    	Car car = new Car(c.getBrand(),c.getModel(),c.getPrice(),c.getImgLink(),c.getLink());
+    	list.add(car);}
+		return list;
 	}
 }

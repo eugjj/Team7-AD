@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
 import sg.edu.iss.kuruma.model.User;
 import sg.edu.iss.kuruma.service.UserService;
 
@@ -25,8 +27,9 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/register")
-	public String register(Model model) {
-		model.addAttribute("user", new User());
+	public String register(Model model, HttpSession session) {
+		model.addAttribute("user", new User());		
+		model.addAttribute("username",(String)session.getAttribute("username"));
 		return "register";
 	}
 	
@@ -35,7 +38,8 @@ public class LoginController {
 		User u = new User (user.getUsername(),user.getPassword(),user.getEmail());
 		if (uservice.findByUsername(u.getUsername()) == null) {
 		uservice.addUser(u);
-		return "redirect:/home";}
+		model.addAttribute("message", "success");
+		return "forward:/register";}
 		else
 			model.addAttribute("message", "repeat username");
 		return "forward:/register";

@@ -22,18 +22,18 @@
             <span class="navbar-toggler-icon"></span>
         </button>
     
-    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" th:if="${#strings.equals(username, 'Guest')}">
+    <div class="float-right" th:if="${#strings.equals(username, 'Guest')}">
     	
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/register">Register Now</a>
+                <a class="nav-link" href="/register">Register</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/login">Login</a>
             </li>
         </ul>
     </div>
-    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" th:if="${not #strings.equals(username, 'Guest')}">
+    <div class="float-right" th:if="${not #strings.equals(username, 'Guest')}">
     	
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
