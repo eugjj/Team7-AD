@@ -15,7 +15,7 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Info
+            Useful Info
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" th:href="@{/info}">Recommendation Listings</a></li>
@@ -28,13 +28,8 @@
 
 	<ul class="navbar-nav ms-auto my-1 my-sm-0 navbar-nav-scroll" style="--bs-scroll-height: 50px;">
          <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Account
-          </a>
-          <div th:switch="true" style="color:rgb(192, 192, 192);">
-            <th:case="${username != null}" th:text="${username}">
-            <th:case="${username == Guest}" th:text="${username}">
-        </div>
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="'Account - '+${username}"></a>
+
     <ul class="dropdown-menu dropdown-menu-end">
           <div th:if="${#strings.equals(username, 'Guest')}">
             <li><a class="dropdown-item" th:href="@{/login}">Login</a></li>

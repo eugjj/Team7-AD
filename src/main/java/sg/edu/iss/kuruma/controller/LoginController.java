@@ -21,8 +21,9 @@ public class LoginController {
 	UserService uservice;
 	
 	@RequestMapping("/login")
-	public String Login(Model model) {		
+	public String Login(Model model, HttpSession session) {		
 		model.addAttribute("user", new User());
+		model.addAttribute("username", session.getAttribute("username"));
 		return "login";
 	}
 	

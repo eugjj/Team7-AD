@@ -11,7 +11,7 @@
 
 <body>
 	<div th:replace="fragment/general.html :: nav"></div>
-	
+	<section>
 	<form th:action="@{/search}" method="POST" style="max-width:350px; margin: 0 auto">
 	<div class="border border-secondary rounded p-3">
 			
@@ -27,6 +27,7 @@
 	    </table>
     </form>
 	</div>
+	</section>
 
 	<footer th:replace="fragment/footer.html :: footer"></footer>
 </body>

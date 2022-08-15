@@ -30,27 +30,32 @@ public class InfoController {
     public String loadInfo(Model model, HttpSession session) {
 		// from session get the last search car 
 		Integer carid = (Integer) session.getAttribute("lastcarviewed");
-		cardetails = cservice.findById(carid);
-		
-		// show similar car models based on last search car
-		similarCarList = cservice.getSimilarCarModels(getGenericModelString(cardetails))
-				.stream()
-				.limit(SHOW_MODEL_NUM)
-				.collect(Collectors.toList());
-		
-		// show best value (based on listing and predicted price)
-		bestValueList = cservice.findAllCars().stream()
-					.sorted((c1,c2)->cservice.calcValue(c1).compareTo(cservice.calcValue(c2)))
+		if (carid != null) {
+			cardetails = cservice.findById(carid);
+			
+			// show similar car models based on last search car
+			similarCarList = cservice.getSimilarCarModels(getGenericModelString(cardetails))
+					.stream()
 					.limit(SHOW_MODEL_NUM)
 					.collect(Collectors.toList());
-		
-		// show similar clustering results as last search car
-		
-		model.addAttribute("similarCarModels", similarCarList);
-		model.addAttribute("bestBuy", bestValueList);
-		model.addAttribute("prevCarSearched", cardetails);
-		model.addAttribute("username", session.getAttribute("username"));
-        return "info";
+			
+			// show best value (based on listing and predicted price)
+			bestValueList = cservice.findAllCars().stream()
+						.sorted((c1,c2)->cservice.calcValue(c1).compareTo(cservice.calcValue(c2)))
+						.limit(SHOW_MODEL_NUM)
+						.collect(Collectors.toList());
+			
+			// show similar clustering results as last search car
+			
+			model.addAttribute("similarCarModels", similarCarList);
+			model.addAttribute("bestBuy", bestValueList);
+			model.addAttribute("prevCarSearched", cardetails);
+			model.addAttribute("username", session.getAttribute("username"));
+	        return "info";
+		}
+		else {
+			return "redirect:/home";
+		}
 	}
 	
 	public String getGenericModelString(Car cardetails) {
