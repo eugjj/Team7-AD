@@ -65,11 +65,8 @@ public class SearchController {
 	 public String showAllCars(@Param("entry") String entry, Model model, HttpSession session) {
 		 String uname = (String)session.getAttribute("username");
 		 username = uname;
-			/*
-			 * if (uname.isEmpty()) session.setAttribute("username", "Guest");
-			 */
+
 		 try {
-		 	
 		 	wList = uservice.getWishlist(uname);
 	    	List<Car> list = cservice.findAllCars();
 	    	model.addAttribute("searchlist",list);
@@ -85,13 +82,23 @@ public class SearchController {
     	if(entry != null) {
     		searchEntry = entry;
     		listByPage = new ArrayList<Car>();
-        	listByPage = cservice.findSearchByEntry(searchEntry);}
+        	listByPage = cservice.findSearchByEntry(searchEntry);
+        	}
+    	
     	atWishlist = false;
     	username =(String) session.getAttribute("username");
     	List<Car> result = new ArrayList<Car>();
-    	if (listByPage.size() > 0) {
+    	
+    	if (listByPage.size() < ITEMS_PER_PAGE && listByPage.size() > 0) {
+    		for (int i=0; i<listByPage.size(); i++) {
+    			result.add(listByPage.get(i));
+    		}
+    	}
+    	if (listByPage.size() > ITEMS_PER_PAGE) {
     		for(int i=0; i<ITEMS_PER_PAGE; i++) {
-    			result.add(listByPage.get(i));}}
+    				result.add(listByPage.get(i));
+    			}
+    		}
     	pageNo = 0;
     	wList = uservice.getWishlist(username);
     	model.addAttribute("searchlist",result);

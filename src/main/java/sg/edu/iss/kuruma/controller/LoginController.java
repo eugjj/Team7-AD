@@ -71,7 +71,6 @@ public class LoginController {
 	@RequestMapping("/logout")
 	public String Logout(HttpSession session){
 			session.setAttribute("username","Guest");
-			System.out.println(session.getAttribute("username"));
 		return "redirect:/home";
 	}
 	

@@ -9,14 +9,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 </head>
 <body>
-	<div th:replace="fragment/general.html :: nav"></div>
+	
 	<div class="container-fluid text-center">
 		<img src="../image/fox.png" class="img-fluid" />
 		<h1><b>500</b></h1>
 		<h3>Unexpected Error :(</h3>
-		
+		<p><a th:href="@{/home}">Return to Home page</a></p>
 	
 	</div>
-	<footer th:replace="fragment/footer.html :: footer"></footer>
+	
 </body>
 </html>  

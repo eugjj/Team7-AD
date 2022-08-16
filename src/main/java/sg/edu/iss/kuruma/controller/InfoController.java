@@ -41,6 +41,7 @@ public class InfoController {
 			
 			// show best value (based on listing and predicted price)
 			bestValueList = cservice.findAllCars().stream()
+						.filter(x -> x.getManufacturedYear() > 2012)
 						.sorted((c1,c2)->cservice.calcValue(c1).compareTo(cservice.calcValue(c2)))
 						.limit(SHOW_MODEL_NUM)
 						.collect(Collectors.toList());

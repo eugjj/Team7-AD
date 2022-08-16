@@ -52,14 +52,15 @@ public class Car {
 		this.predictedPrice = predictedPrice;
 	}
 
-	public Car(String brand2, String model2, Double price2, String imgLink2, String link2) {
+	public Car(String brand2, String model2, Double price2, Double predictedprice, String imgLink2, String link2) {
 		super();
 		this.brand=brand2;
 		this.model=model2;
 		this.price=price2;
+		this.predictedPrice = predictedprice;
 		this.imgLink=imgLink2;
 		this.link=link2;
-	}  
+	}
 
 }
  

@@ -39,12 +39,6 @@ public class CarServiceImpl implements CarService {
     public List<Car> findByModel(String model) {
         return crepo.findByModel(model);
     }
-    
-    @Transactional
-    public boolean saveFacility(Car car) {
-        if(crepo.save(car)!=null) return true; 
-        else return false;
-    }
 
     @Override
     @Transactional
@@ -83,7 +77,7 @@ public class CarServiceImpl implements CarService {
 	public List<Car> androidList(List<Car> cars) {
 		List<Car> list = new ArrayList<Car>();
 		for(Car c:cars) {
-    	Car car = new Car(c.getBrand(),c.getModel(),c.getPrice(),c.getImgLink(),c.getLink());
+    	Car car = new Car(c.getBrand(),c.getModel(),c.getPrice(),c.getPredictedPrice(), c.getImgLink(),c.getLink());
     	list.add(car);}
 		return list;
 	}

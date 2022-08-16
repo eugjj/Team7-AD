@@ -25,25 +25,26 @@ public class HomeController {
 	public String home(Model model, @Param("entry") String entry, HttpSession session) {
 		if (session.isNew()) {
 			session.setAttribute("username", "Guest");}
+		model.addAttribute("username",session.getAttribute("username"));
 		model.addAttribute("entry", entry); 
 		return "home"; 
 		 }
 	
 	@RequestMapping("/basicmodel")
-	public String loadbasic(Model model, HttpSession session) {
-		model.addAttribute("username", session.getAttribute("username"));
+	public String loadbasic() {
+		
 		return "basicmodel";
 	}
 	
 	@RequestMapping("/expertmodel")
-	public String loadexpert(Model model, HttpSession session) {
-		model.addAttribute("username", session.getAttribute("username"));
+	public String loadexpert() {
+		
 		return "expertmodel";
 	}
 	
 	@RequestMapping("/loan")
-    public String loan(Model model, HttpSession session) {
-        model.addAttribute("username", session.getAttribute("username"));
+    public String loan() {
+        
         return "loan";
         
         }

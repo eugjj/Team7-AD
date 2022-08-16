@@ -3,11 +3,11 @@ package sg.edu.iss.kuruma.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,12 +59,10 @@ public class CarController {
     	}
     }
     
-    @RequestMapping("/test1")
-    public List<Car> getAllData(){
-    	List<Car> list = cservice.findAllCars().stream().limit(20).collect(Collectors.toList());
-    	System.out.println(list.size());
-    	return cservice.androidList(list);
+     @RequestMapping("/{query}")
+    public List<Car> getCarByQuery(@PathVariable("query")String query){
+    	List<Car> cars = cservice.findSearchByEntry(query);
+    	return cservice.androidList(cars);
     }
-  
     
 }
