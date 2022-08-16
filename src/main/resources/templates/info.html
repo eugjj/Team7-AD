@@ -94,6 +94,7 @@
                   <a th:href="@{/add/}+${car.Id}"><button type="button" class="btn btn-sm btn-outline-secondary">Wishlist</button></a>
                 </div>
                 <small class="text-muted" th:text="'$'+${car.price}"></small>
+                <small th:with="result=${(car.price-car.predictedPrice)/car.predictedPrice * 100}"><strong th:style="|${result > 0 ? 'color: red;' : 'color: green;'}|" th:text="${#numbers.formatDecimal(result,0,1)} +'%'"></strong></small>
               </div>
             </div>
           </div>

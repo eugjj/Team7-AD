@@ -13,8 +13,9 @@
 <body>
 <div th:replace="fragment/general.html :: nav"></div>
 <main>
+
 <section class="py-2 text-center container">
-<div class="row py-lg-5">
+<div class="row py-lg-4">
 	<div class="col-lg-6 col-md-8 mx-auto">
 		<h3 th:text="${carD.model}"></h3>     
 		<div><table class="table table-hover">
@@ -82,6 +83,7 @@
 	</div>
 </section>
 
+<div align="right"><a th:href="@{/search}"><button type="button" class="btn btn-secondary py-1">Return <i class="fa-solid fa-arrow-rotate-left"></i></button></a></div>
 <section class="py-2 text-center container">
 <div class="row py-lg-5">
 	<div class="col-lg-6 col-md-8 mx-auto">
