@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -50,7 +51,7 @@ public class SearchController {
     		listByPage = cservice.sortSearchByManuYear(searchEntry);
     	}
     	else {
-    		listByPage = cservice.findSearchByEntry(searchEntry);
+    		listByPage = cservice.findSearchByEntry(searchEntry).stream().filter(x->x.getManufacturedYear() > 2012).collect(Collectors.toList());
     		Collections.sort(listByPage, new Comparator<Car>() {
 				@Override
 				public int compare(Car c1, Car c2) {

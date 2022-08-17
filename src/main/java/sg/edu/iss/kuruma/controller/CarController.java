@@ -18,6 +18,7 @@ import sg.edu.iss.kuruma.model.User;
 import sg.edu.iss.kuruma.repository.UserRepository;
 import sg.edu.iss.kuruma.service.CarService;
 import sg.edu.iss.kuruma.service.EmailNotificationService;
+import sg.edu.iss.kuruma.service.UserService;
 
 @CrossOrigin
 @RestController
@@ -35,10 +36,9 @@ public class CarController {
         try {
             // ----> need to add in logic to check if car already in db    
         	cservice.saveCar(car);
-        	
+        	sendEmailNotification(car);
         	// --> once save newcar into db need to add in logic to check against wishlist and if newcar's price < wishlist car's price
         	// then do postrequest sendEmailNotification
-         
                 return new ResponseEntity<>(car, HttpStatus.CREATED);
             } catch (Exception e) {
                 return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
@@ -46,12 +46,9 @@ public class CarController {
     }
     
     @PostMapping(value="/emailnotice", consumes="application/json", produces="application/json")
-    public String sendEmailNotfication(@RequestBody User user) {
+    public String sendEmailNotification(@RequestBody Car car) {
     	try {
-    		// seed user for testing
-    		User user1 = new User (user.getEmail());
-    		urepo.save(user1);
-    		eservice.sentEmailNotification(user1);
+    		eservice.sentEmailNotification(eservice.userWithcarPriceLessThanWishlist(car));
     		return "Email notification sent!";
     	}
     	catch (Exception ex) {
@@ -64,5 +61,6 @@ public class CarController {
     	List<Car> cars = cservice.findSearchByEntry(query);
     	return cservice.androidList(cars);
     }
+     
     
 }

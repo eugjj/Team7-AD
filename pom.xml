@@ -95,6 +95,7 @@
 	</dependencies>
 
 	<build>
+	<finalName>Team7_AD_Kuruma</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

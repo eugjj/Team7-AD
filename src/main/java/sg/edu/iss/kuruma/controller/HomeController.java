@@ -20,6 +20,11 @@ public class HomeController {
 	public String aboutUs(){
 		return "aboutus";
 	}
+    
+    @RequestMapping("/")
+    public String basic() {
+    	return "forward:/home";
+    }
 	
 	@RequestMapping("/home") 
 	public String home(Model model, @Param("entry") String entry, HttpSession session) {
