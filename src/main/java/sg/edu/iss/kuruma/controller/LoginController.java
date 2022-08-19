@@ -80,8 +80,9 @@ public class LoginController {
 	}
 
 	@RequestMapping("/change")
-	public String changePassword(Model model){
+	public String changePassword(Model model, HttpSession session){
 		model.addAttribute("user",new User());
+		model.addAttribute("username", session.getAttribute("username"));
 		//create plain object to use in html
        return "changePassword";
 	}

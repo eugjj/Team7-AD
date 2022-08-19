@@ -18,7 +18,7 @@ public class EmailNotificationService {
 	UserRepository urepo;
 	@Autowired
 	private JavaMailSender sender;
-	private final String kurumaUrl ="http://localhost:8080/cardetail/";
+	private final String kurumaUrl ="http://team7adkuruma-env.eba-nwgzjkxv.ap-southeast-1.elasticbeanstalk.com:8080/cardetail/";
 	
 	public void sentEmailNotification(Pair<User,Car[]> pair) {
 		SimpleMailMessage msg = new SimpleMailMessage();
@@ -36,7 +36,7 @@ public class EmailNotificationService {
 				"\nClick on LINK for more details: %3s"+
 				"\n\nHope you enjoy using Kuruma service!"+
 				"\nKuruma Team7"+
-				"\n-------------------------------------------------------------------------------------------"+
+				"\n-----------------------------------------------------------------------------------------------"+
 				"\n*This e-mail is an automated notification. Please do not reply to this message.", newCar.getModel(), newCar.getPrice().toString(), carLink));
 		sender.send(msg);
 	}

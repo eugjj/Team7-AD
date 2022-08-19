@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Admin</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div th:replace="fragment/general.html :: nav"></div>
+	<div id="content">
+	<h3 style="color:brown">Update Car Database</h3>
+	<form th:action="@{/api/py}">
+<div class="btn-group-sm" role="group" aria-label="Choose site to scrape from">
+	<span>Perform webscrape</span><br>
+	  <button class="btn btn-outline-primary" type="submit">SGCarMart</button>
+	  <button class="btn btn-outline-primary" type="submit">Carro</button>
+	  <button class="btn btn-outline-primary" type="submit">Motorist</button>
+	  
+</div>
+</form>
+<br>
+<br>
+	<h3 style="color:brown">Manage Users</h3>
+<table class="table table-hover p-5">
+	<th class="col">Username</th>
+		<th class="col">Email</th>
+		
+			</a></th>
+		<th class="col">Delete User</th></tr>
+	<tr th:each="user:${userlist}">
+	<td th:text=${user.username}>Username</td>
+	<td th:text="${user.email}">Email</td>
+	
+	<td><a href="admin.html" th:href="@{/admin/delete/}+${user.username}">Delete User</a></td></tr>
+	
+</table></div>
+</body>
+</html>

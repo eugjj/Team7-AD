@@ -1,5 +1,6 @@
 package sg.edu.iss.kuruma.controller;
 
+import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import sg.edu.iss.kuruma.model.Car;
 import sg.edu.iss.kuruma.model.User;
@@ -32,13 +34,11 @@ public class CarController {
     UserRepository urepo;
   
     @RequestMapping(value = "/add")
-    public ResponseEntity<Car> createAccount(@RequestBody Car car) {
+    public ResponseEntity<Car> createCar(@RequestBody Car car) {
         try {
             // ----> need to add in logic to check if car already in db    
         	cservice.saveCar(car);
         	sendEmailNotification(car);
-        	// --> once save newcar into db need to add in logic to check against wishlist and if newcar's price < wishlist car's price
-        	// then do postrequest sendEmailNotification
                 return new ResponseEntity<>(car, HttpStatus.CREATED);
             } catch (Exception e) {
                 return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
@@ -61,6 +61,20 @@ public class CarController {
     	List<Car> cars = cservice.findSearchByEntry(query);
     	return cservice.androidList(cars);
     }
+     
+     @RequestMapping("/py")
+     public ResponseEntity<?> startPython() {
+    	 try {
+    	        String uri="http://127.0.0.1:5000/start";
+    	        RestTemplate restTemplate = new RestTemplate();
+    	       
+    	        ResponseEntity<String> result = restTemplate.postForEntity(uri, "", String.class);
+    	        return new ResponseEntity<>( result.getStatusCodeValue() == 200 ? "Db created successfully" : "Db Not created successfully", HttpStatus.OK);
+    	    }catch (Exception e){
+    	        e.printStackTrace();
+    	        return new ResponseEntity<>("Error!, Please try again", HttpStatus.INTERNAL_SERVER_ERROR);
+    	    }
+     }
      
     
 }

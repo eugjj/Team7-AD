@@ -234,4 +234,16 @@ public class SearchController {
 		return "forward:/search/"+pageNo;
 	}
     
+    @RequestMapping("deletecar/{id}")
+	public String deleteCar(@PathVariable("id")int carid){
+		if (!username.equals("Admin")) {
+			return "redirect:/login";}
+		Car car = cservice.findById(carid);
+		cservice.deleteCar(car);
+		listByPage = cservice.findSearchByEntry(searchEntry);
+		if(listByPage.size()>0)
+			return "redirect:/search/"+pageNo;
+		else
+			return "redirect:/search";
+	}
 }

@@ -68,6 +68,17 @@ public class UserServiceImpl implements UserService {
 	public void save(User u) {
 		urepo.save(u);
 	}
+@Override
+	@Transactional
+    public List<User> showUsers(){
+		return urepo.findAll();
+	}
 
+	@Override
+	@Transactional
+    public void deleteUser(String username){
+		Integer id = urepo.findByUsername(username).getUserid();
+		urepo.deleteById(id);
+	}
 
 }
